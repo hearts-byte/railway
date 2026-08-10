@@ -1,49 +1,51 @@
 FROM php:8.1-apache
 
-# تثبيت الإضافات المطلوبة لتشغيل CodyChat
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libonig-dev \
-    unzip \
-    curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        mysqli \
-        pdo_mysql \
-        gd \
-        zip \
-        mbstring \
-        opcache \
-    && rm -rf /var/lib/apt/lists/*
+# تثبيت الإضافات عبر أداة mlocati (تتعامل مع التوافق تلقائياً)
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions gd zip curl mbstring opcache pdo_mysql mysqli ioncube_loader
 
 # تفعيل mod_rewrite
 RUN a2enmod rewrite
 
-# --- إصلاح مشكلة "More than one MPM loaded" ---
+# السماح بـ .htaccess
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# --- إصلاح "More than one MPM loaded" ---
 RUN find /etc/apache2/mods-enabled/ -name 'mpm_*' ! -name 'mpm_prefork*' -delete \
-    && a2enmod mpm_prefork
+    && a2enmod mpm_prefork \
+    && apache2ctl -M 2>&1 | grep -i mpm
 
-# تثبيت Ioncube Loader لـ PHP 8.1
-RUN curl -sSL -o /tmp/ioncube.tar.gz https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
-    && mkdir -p /tmp/ioncube \
-    && tar -xzf /tmp/ioncube.tar.gz -C /tmp/ioncube --strip-components=1 \
-    && cp /tmp/ioncube/ioncube_loader_lin_8.1.so $(php -r 'echo ini_get("extension_dir");')/ioncube_loader.so \
-    && echo "zend_extension=$(php -r 'echo ini_get("extension_dir");')/ioncube_loader.so" > /usr/local/etc/php/conf.d/00-ioncube.ini \
-    && rm -rf /tmp/ioncube /tmp/ioncube.tar.gz
+# مجلد الجلسات
+RUN mkdir -p /var/lib/php/sessions \
+    && chown -R www-data:www-data /var/lib/php/sessions \
+    && chmod -R 777 /var/lib/php/sessions
 
-# نسخ ملفات السكربت
+# إعدادات PHP
+RUN { \
+    echo 'memory_limit = 512M'; \
+    echo 'max_execution_time = 300'; \
+    echo 'upload_max_filesize = 64M'; \
+    echo 'post_max_size = 64M'; \
+    echo 'display_errors = On'; \
+    echo 'error_reporting = E_ALL'; \
+    echo 'session.save_path = "/var/lib/php/sessions"'; \
+    echo 'session.cookie_httponly = On'; \
+    echo 'session.use_only_cookies = On'; \
+    echo 'session.same_site = "Lax"'; \
+    } > /usr/local/etc/php/conf.d/custom.ini
+
+# نسخ ملفات المشروع
 COPY . /var/www/html/
 
-# إنشاء سكربت التشغيل مباشرة (بدون COPY، لتفادي مشاكل ترميز CRLF)
+# صلاحيات المجلدات
+RUN mkdir -p /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod -R 777 /var/www/html/avatar /var/www/html/cover /var/www/html/upload
+
+# سكربت التشغيل — منشأ مباشرة (بدون COPY لتفادي مشاكل CRLF)
 RUN printf '#!/bin/bash\n: "${PORT:=80}"\nsed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf\nsed -i "s/:80>/:${PORT}>/" /etc/apache2/sites-available/000-default.conf\nexec apache2-foreground\n' > /usr/local/bin/start.sh \
     && chmod +x /usr/local/bin/start.sh
-
-# ضبط الصلاحيات
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
 
 EXPOSE 80
 
