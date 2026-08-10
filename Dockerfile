@@ -20,6 +20,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN a2enmod rewrite
 
+# --- الإصلاح: تعطيل أي MPM آخر وتفعيل prefork فقط ---
+RUN a2dismod mpm_event mpm_worker 2>/dev/null; \
+    a2enmod mpm_prefork
+
 RUN curl -sSL -o /tmp/ioncube.tar.gz https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
     && mkdir -p /tmp/ioncube \
     && tar -xzf /tmp/ioncube.tar.gz -C /tmp/ioncube --strip-components=1 \
