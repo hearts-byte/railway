@@ -35,7 +35,7 @@ RUN curl -sSL -o /tmp/ioncube.tar.gz https://downloads.ioncube.com/loader_downlo
     && rm -rf /tmp/ioncube /tmp/ioncube.tar.gz
 
 COPY . /var/www/html/
-COPY start.sh /usr/local/bin/start.sh
+RUN printf '#!/bin/bash\n: "${PORT:=80}"\nsed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf\nsed -i "s/:80>/:${PORT}>/" /etc/apache2/sites-available/000-default.conf\nexec apache2-foreground\n' > /usr/local/bin/start.sh
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
