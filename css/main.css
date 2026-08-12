@@ -625,6 +625,7 @@ input { font-family: sans-serif,'trebuchet ms','lucida grande','lucida sans unic
 .other_logs{ padding:10px; word-wrap: break-word; display:table; width:100%; table-layout:fixed; max-width:100%; overflow:hidden; }
 .chat_avatar { display:table-cell; width:40px; vertical-align:top; position:relative; }
 .cavatar  { height:40px; width:40px; border-radius:50%; display:block; overflow:hidden; cursor:pointer; }
+.chat_level_badge { position:absolute; bottom:-2px; left:50%; transform:translateX(-50%); min-width:16px; height:16px; line-height:16px; padding:0 4px; border-radius:20px; background:#222; color:#fff; font-size:10px; font-weight:bold; text-align:center; border:2px solid #fff; box-sizing:border-box; cursor:pointer; z-index:2; }
 .my_text { display:table-cell; vertical-align:top; padding:0 0 0 6px; position:relative; }
 .topic_text { display:table-cell; vertical-align:top; padding:0 10px; position:relative; }
 .my_text .username { font-size:12px; }
