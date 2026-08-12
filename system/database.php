@@ -2,7 +2,7 @@
 // base system prefix
 define('BOOM_PREFIX', 'tc_');
 
-// optional base domain (ضع رابط موقعك هنا بين العلامتين)
+// optional base domain (ضع رابط موقعك على Railway)
 define('BOOM_DOMAIN', 'https://railway-production-943a.up.railway.app');
 
 // default redis configuration
@@ -21,7 +21,7 @@ define('BOOM_DNAME', 'railway');
 define('BOOM_PATH', dirname(__DIR__));
 
 // do not modify those variables
-define('BOOM_CRYPT', 'tc_' . md5(rand(1000000, 9999999)));
+define('BOOM_CRYPT', 'tc_fixed_secret_key_9988');
 define('BOOM_INSTALL', 1);
 define('BOOM', 1);
 ?>
