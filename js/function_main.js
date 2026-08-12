@@ -206,8 +206,18 @@ chatReload = function(){
 }
 
 deleteChatMessage = function(t){
-	$("#log"+t).replaceWith("");
-	$(".quote"+t).replaceWith("");
+	$.post('system/action/action_other.php', {
+		del_post: t,
+		}, function(response) {
+			var res = JSON.parse(response);
+			if(res.success){
+				$("#log"+t).replaceWith("");
+				$(".quote"+t).replaceWith("");
+			}
+			else {
+				callError(system.error);
+			}
+	});
 }
 
 clearChat = (data) => {
