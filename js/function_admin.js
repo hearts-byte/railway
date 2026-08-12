@@ -801,8 +801,8 @@ waitCreate = 0;
 addNewUser = function(){
 	if(waitCreate == 0){
 		waitCreate = 1;
-		$.post('system/action/action_users.php', {
-			create_user: 1,
+		$.post('system/action/action_createuser_fix.php', {
+	create_user: 1,
 			create_name: $('#set_create_name').val(),
 			create_password: $('#set_create_password').val(),
 			create_email: $('#set_create_email').val(),
