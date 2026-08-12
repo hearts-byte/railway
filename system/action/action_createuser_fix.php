@@ -110,13 +110,12 @@ if ($check_email && $check_email->num_rows > 0) {
 $hashed_password = encrypt($password);
 $now = time();
 $default_room = (int) ($setting['main_room'] ?? 1);
-$new_session = md5(rand(10000, 99999) . rand(10000, 99999));
 
 $insert = $mysqli->query("
 	INSERT INTO boom_users
-	(user_name, user_password, user_email, user_sex, user_age, user_join, last_action, user_rank, user_level, user_roomid, session_id, user_status)
+	(user_name, user_password, user_email, user_sex, user_age, user_join, last_action, user_rank, user_level, user_roomid, user_status)
 	VALUES
-	('$name', '$hashed_password', '$email', '$gender', '$age', '$now', '$now', '0', '1', '$default_room', '$new_session', '0')
+	('$name', '$hashed_password', '$email', '$gender', '$age', '$now', '$now', '0', '1', '$default_room', '0')
 ");
 
 if (!$insert) {
