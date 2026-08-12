@@ -2,8 +2,8 @@
 // base system prefix
 define('BOOM_PREFIX', 'tc_');
 
-// optional base domain (ضع رابط موقعك على Railway هنا)
-define('BOOM_DOMAIN', 'https://railway-production-943a.up.railway.app);
+// optional base domain (ضع رابط موقعك هنا بين العلامتين)
+define('BOOM_DOMAIN', 'https://railway-production-943a.up.railway.app');
 
 // default redis configuration
 define('REDIS_IP', '127.0.0.1');
@@ -11,7 +11,7 @@ define('REDIS_PORT', 6379);
 define('REDIS_TIMEOUT', 0.2);
 define('REDIS_PASS', '');
 
-// you can edit these lines to configure new setting for your chat
+// database configuration
 define('BOOM_DHOST', 'mysql.railway.internal');
 define('BOOM_DUSER', 'root');
 define('BOOM_DPASS', 'dMnQUIjEvSbJyICZmkgpsSWDQITHnbut');
