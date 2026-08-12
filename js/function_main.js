@@ -206,18 +206,8 @@ chatReload = function(){
 }
 
 deleteChatMessage = function(t){
-	$.post('system/action/action_other.php', {
-		del_post: t,
-		}, function(response) {
-			var res = JSON.parse(response);
-			if(res.success){
-				$("#log"+t).replaceWith("");
-				$(".quote"+t).replaceWith("");
-			}
-			else {
-				callError(system.error);
-			}
-	});
+	$("#log"+t).replaceWith("");
+	$(".quote"+t).replaceWith("");
 }
 
 clearChat = (data) => {
@@ -1815,11 +1805,20 @@ deleteLog = function(item){
 	var delTime = Math.round(new Date() / 1000);
 	resetLogMenu();
 	curDel = delTime;
-	$.post('system/action/action_chat.php', {
+	$.post('system/action/action_chat_delete_fix.php', {
 			del_post: id,
-			}, function(response) {	
-				$("#log"+id).replaceWith("");
-				$(".quote"+id).replaceWith("");
+			}, function(response) {
+				response = $.trim(response);
+				if (response === '1' || response === '2') {
+					// 1 = تم الحذف فعليًا من قاعدة البيانات، 2 = الرسالة كانت محذوفة مسبقًا
+					$("#log"+id).replaceWith("");
+					$(".quote"+id).replaceWith("");
+				} else {
+					// فشل الحذف بالسيرفر (صلاحية أو خطأ) - لا تحذف من الواجهة
+					if (typeof callError === 'function') {
+						callError('تعذر حذف الرسالة');
+					}
+				}
 	});
 }
 hideLog = function(item){
