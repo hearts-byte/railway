@@ -126,7 +126,17 @@ if (!$insert) {
 	exit;
 }
 
-createUserFixDebug('success', ['new_user_id' => $mysqli->insert_id]);
+$new_user_id = $mysqli->insert_id;
+
+// لازم صف مطابق بجدول boom_users_data وإلا الملف الشخصي ما يفتح (userProfileDetails ترجع فاضي)
+$insert_data = $mysqli->query("
+	INSERT INTO boom_users_data (uid) VALUES ('$new_user_id')
+");
+if (!$insert_data) {
+	createUserFixDebug('reject_reason', 'sql_insert_users_data_failed: ' . $mysqli->error);
+}
+
+createUserFixDebug('success', ['new_user_id' => $new_user_id]);
 
 if (function_exists('redisFlushAll')) {
 	redisFlushAll();
@@ -139,7 +149,7 @@ if (function_exists('opcache_reset')) {
 }
 if (function_exists('boomConsole')) {
 	boomConsole('create_user_admin', [
-		'target' => $mysqli->insert_id,
+		'target' => $new_user_id,
 		'name'   => $name,
 	]);
 }
