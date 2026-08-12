@@ -998,6 +998,7 @@ changeMyUsername = function(){
 		}, function(response) {
 			if(response == 1){
 				$('.globname').text(myNewName);
+				callSuccess(system.saved);
 				hideOver();
 			}
 			else if(response == 2){
