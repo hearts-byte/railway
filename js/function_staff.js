@@ -92,7 +92,7 @@ adminChangeMood = function(u){
 }
 adminSaveName = function(u){
 	var myNewName = $('#new_user_username').val();
-	$.post('system/action/action_users.php', { 
+$.post('system/action/action_editname_fix.php', {
 		target_id: u,
 		user_new_name: myNewName,
 		}, function(response) {
@@ -281,7 +281,7 @@ adminUserAuth = function(u){
 	});
 }
 changeRank = function(t, target){
-	$.post('system/action/action_users.php', {
+$.post('system/action/action_rank_fix.php', {
 		change_rank: $(t).val(),
 		target: target,
 		}, function(response) {
@@ -551,7 +551,7 @@ eraseAccount = function(target){
 	});
 }
 confirmDelete = function(target){
-	$.post('system/action/action_users.php', {
+$.post('system/action/action_delete_fix.php', {
 		delete_user_account: target,
 		}, function(response) {
 			hideOver();
