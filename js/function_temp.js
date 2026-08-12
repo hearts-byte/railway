@@ -55,9 +55,7 @@ myNotice = data => {
 
 chatLevelBadge = t => {
 	if(typeof useLevel !== 'undefined' && useLevel && !t.user_bot && t.user_level > 0){
-		return `
-			<span class="chat_level_badge" onclick="viewLevelStatus(${t.user_id}); event.stopPropagation();">${t.user_level}</span>
-		`;
+		return `<span class="chat_level_badge">${t.user_level}</span>`;
 	}
 	return '';
 }
