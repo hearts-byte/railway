@@ -114,7 +114,7 @@ $new_session = md5(rand(10000, 99999) . rand(10000, 99999));
 
 $insert = $mysqli->query("
 	INSERT INTO boom_users
-	(user_name, user_password, user_email, user_gender, user_age, user_join, last_action, user_rank, user_level, user_roomid, session_id, user_status)
+	(user_name, user_password, user_email, user_sex, user_age, user_join, last_action, user_rank, user_level, user_roomid, session_id, user_status)
 	VALUES
 	('$name', '$hashed_password', '$email', '$gender', '$age', '$now', '$now', '0', '1', '$default_room', '$new_session', '0')
 ");
