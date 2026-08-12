@@ -110,12 +110,13 @@ if ($check_email && $check_email->num_rows > 0) {
 $hashed_password = encrypt($password);
 $now = time();
 $default_room = (int) ($setting['main_room'] ?? 1);
+$avatar = ($gender == 2) ? 'default_female.png' : 'default_male.png';
 
 $insert = $mysqli->query("
 	INSERT INTO boom_users
-	(user_name, user_password, user_email, user_sex, user_age, user_join, last_action, user_rank, user_level, user_roomid, user_status)
+	(user_name, user_password, user_email, user_smail, user_sex, user_age, user_join, last_action, user_rank, user_level, user_roomid, user_status, user_verify, user_tumb)
 	VALUES
-	('$name', '$hashed_password', '$email', '$gender', '$age', '$now', '$now', '0', '1', '$default_room', '0')
+	('$name', '$hashed_password', '$email', '$email', '$gender', '$age', '$now', '$now', '1', '1', '$default_room', '1', '1', '$avatar')
 ");
 
 if (!$insert) {
