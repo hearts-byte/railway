@@ -16,7 +16,7 @@
  * 0  = خطأ عام / غير مصرح
  */
 
-require __DIR__ . "/../config.php";
+require __DIR__ . "/../config_session.php";
 
 // وضع تشخيص مؤقت: اجعلها true أثناء الاختبار فقط، ثم أعدها false على الإنتاج
 define('CREATEUSER_FIX_DEBUG', true);
@@ -37,10 +37,7 @@ if (empty($data) || empty($data['user_id'])) {
 	exit;
 }
 
-$my_rank   = (int) $data['user_rank'];
-$can_create = (int) ($setting['can_delete'] ?? 100); // نفس صلاحية إدارة الأعضاء العليا؛ عدّلها لو عندك مفتاح مختلف مثل can_create
-
-if ($my_rank < $can_create) {
+if (!function_exists('canCreateUser') || !canCreateUser()) {
 	createUserFixDebug('reject_reason', 'not_allowed_rank');
 	echo 0;
 	exit;
