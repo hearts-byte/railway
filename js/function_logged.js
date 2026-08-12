@@ -1594,7 +1594,7 @@ uploadChat = function(f){
 						callError(system.fileBlocked);
 					}
 					else if(response.code == 5){
-						appendSelfChatMessage(response.logs);
+						appendSelfChatMessage(response.log);
 					}
 					else {
 						callError(system.error);
@@ -1700,7 +1700,7 @@ uploadPrivate = function(f){
 						callError(system.fileBlocked);
 					}
 					else if(response.code == 5){
-						appendSelfPrivateMessage(response.logs);
+						appendSelfPrivateMessage(response.log);
 					}	
 					else if(response.code == 99){
 						appendCannotPrivate();
