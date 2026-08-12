@@ -53,6 +53,17 @@ myNotice = data => {
 
 // CHAT LOGS
 
+chatLevelBadge = t => {
+	if(typeof useLevel !== 'undefined' && useLevel && !t.user_bot && t.user_level > 0){
+		return `
+			<div class="lite_olay plevel_item plevel" onclick="viewLevelStatus(${t.user_id}); event.stopPropagation();">
+				<img src="default_images/icons/level.svg"/> <span class="plevel_count">${t.user_level}</span>
+			</div>
+		`;
+	}
+	return '';
+}
+
 chatLogTemplate = t => {
 	var quoted = '';
 	if(t.quote !== null && !ignored(t.quote.quser)){
@@ -76,6 +87,7 @@ chatLogTemplate = t => {
 		<li id="log${t.log_id}" data="${t.log_id}" class="chat_log ch_logs ${t.log_type} ${ghostLog(t.gpost)}">
 			<div class="avtrig avs_menu chat_avatar" data-i="l${t.log_id}" data-av="${myAvatar(t.user_tumb)}" data-cover="${t.user_cover}" data-id="${t.user_id}" data-name="${t.user_name}" data-rank="${t.user_rank}" data-level="${t.user_level}" data-bot="${t.user_bot}" data-gender="${t.user_gender}" data-country="${t.user_country}" data-age="${t.user_age}">
 				<img class="cavatar avav ${t.gborder}" src="${myAvatar(t.user_tumb)}"/>
+				${chatLevelBadge(t)}
 			</div>
 			<div class="my_text">
 				<div class="btable">
