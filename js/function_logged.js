@@ -992,7 +992,7 @@ changeMood = function(){
 }
 changeMyUsername = function(){
 	var myNewName = $('#my_new_username').val();
-	$.post('system/action/action_profile.php', { 
+	$.post('system/action/action_username_fix.php', { 
 		edit_username: 1,
 		new_name: myNewName,
 		}, function(response) {
