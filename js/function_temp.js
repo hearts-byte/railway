@@ -2,7 +2,7 @@ chatRank = (rank, cl) => {
 	return `<img title="${systemRankTitle(rank)}" src="${systemRankIcon(rank)}" class="${cl}"/>`;
 }
 myAvatar = t => {
-	if(t.includes('default')){
+	if(!t || t.includes('default')){
 		return `default_images/avatar/${t}`;
 	}
 	else {
