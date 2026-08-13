@@ -4,11 +4,10 @@
  * بديل غير مشفّر لعملية delete_user_account بدلاً من الملف المشفّر action_users.php
  * يُرفع داخل مجلد: system/action/
  *
- * تحذير: هذا حذف فعلي (DELETE) من جدول boom_users فقط.
- * بيانات المستخدم بجداول أخرى (chat, friends, gifts...) لن تُحذف تلقائيًا.
+ * يستخدم دالة clearUserData() الأصلية لتنظيف كل الجداول المرتبطة بالعضو قبل حذفه.
  */
 
-require __DIR__ . "/../config.php";
+require __DIR__ . "/../config_session.php";
 
 // وضع تشخيص مؤقت: اجعلها true أثناء الاختبار فقط، ثم أعدها false على الإنتاج
 define('DELETE_FIX_DEBUG', true);
@@ -57,7 +56,7 @@ if ($my_rank < $can_del) {
 }
 
 // 2) جلب بيانات الهدف مباشرة من قاعدة البيانات (بدون كاش)
-$result = $mysqli->query("SELECT user_id, user_rank, user_name FROM boom_users WHERE user_id = '$target' LIMIT 1");
+$result = $mysqli->query("SELECT user_id, user_rank, user_name, user_tumb, user_cover FROM boom_users WHERE user_id = '$target' LIMIT 1");
 
 if (!$result || $result->num_rows === 0) {
 	deleteFixDebug('reject_reason', 'target_not_found');
@@ -77,20 +76,16 @@ if ($my_rank <= $target_rank) {
 	exit;
 }
 
-// تنفيذ الحذف الفعلي
-$delete = $mysqli->query("DELETE FROM boom_users WHERE user_id = '{$user['user_id']}' LIMIT 1");
-
-if (!$delete) {
-	deleteFixDebug('reject_reason', 'sql_delete_failed: ' . $mysqli->error);
+// تنفيذ الحذف الفعلي عبر دالة النظام الأصلية clearUserData
+// هذي الدالة تنظف كل الجداول المرتبطة بالعضو (الدردشة، الخاص، الأصدقاء، الإشعارات،
+// المستوى/XP، الشارات، الصورة والغلاف، إلخ) قبل حذف الصف الأساسي من boom_users
+if (!function_exists('clearUserData')) {
+	deleteFixDebug('reject_reason', 'clearUserData_function_missing');
 	echo 0;
 	exit;
 }
 
-if ($mysqli->affected_rows === 0) {
-	deleteFixDebug('reject_reason', 'no_rows_deleted');
-	echo 0;
-	exit;
-}
+clearUserData($user);
 
 deleteFixDebug('success', true);
 
