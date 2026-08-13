@@ -85,6 +85,9 @@ if(isset($_POST['last'], $_POST['caction'], $_POST['fload'], $_POST['priv'], $_P
 		$d['role'] = $data['user_role'];
 	}
 	
+	// user rank (for rank up notification)
+	$d['rank'] = (int) $data['user_rank'];
+	
 	// mute check
 	$d['rm'] = checkMute($data);
 	
