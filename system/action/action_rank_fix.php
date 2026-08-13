@@ -5,7 +5,7 @@
  * يُرفع داخل مجلد: system/action/
  */
 
-require __DIR__ . "/../config.php";
+require __DIR__ . "/../config_session.php";
 
 // وضع تشخيص مؤقت: اجعلها true أثناء الاختبار فقط، ثم أعدها false على الإنتاج
 define('RANK_FIX_DEBUG', true);
@@ -76,18 +76,23 @@ if ($my_rank <= $target_rank) {
 	exit;
 }
 
-// تنفيذ التحديث
-$update = $mysqli->query("UPDATE boom_users SET user_rank = '$change_rank' WHERE user_id = '{$user['user_id']}' LIMIT 1");
-
-if (!$update) {
-	rankFixDebug('reject_reason', 'sql_update_failed: ' . $mysqli->error);
+// جلب بيانات الهدف الكاملة (مطلوبة لدالة userReset لأنها تعتمد على أعمدة إضافية غير user_rank فقط)
+$full_user = userDetails($target_safe);
+if (empty($full_user)) {
+	rankFixDebug('reject_reason', 'userDetails_failed');
 	echo 0;
 	exit;
 }
 
-rankFixDebug('success', true);
+// تنفيذ التحديث عبر دالة النظام الأصلية userReset
+// هذي الدالة تتكفل بكل شي: تحديث الرتبة، تصفير المزايا الممنوعة على الرتبة الجديدة،
+// زيادة user_action (المسؤولة عن تحديث الصفحة تلقائيًا عند الهدف)،
+// وإرسال إشعار رفع الرتبة (rank_change) تلقائيًا لو الرتبة الجديدة أعلى
+userReset($full_user, $change_rank);
 
-// تفريغ الكاش إن وُجد
+rankFixDebug('success', ['old_rank' => $target_rank, 'new_rank' => $change_rank]);
+
+// تفريغ الكاش إن وُجد (userReset أصلاً يستدعي redisUpdateUser داخليًا، هذا احتياط إضافي فقط)
 if (function_exists('redisUpdateUser')) {
 	redisUpdateUser($target_safe);
 }
