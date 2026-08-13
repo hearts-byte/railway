@@ -136,6 +136,14 @@ if (!$insert_data) {
 	createUserFixDebug('reject_reason', 'sql_insert_users_data_failed: ' . $mysqli->error);
 }
 
+// لازم صف مطابق بجدول boom_exp وإلا نافذة معلومات المستوى ما تفتح (userExpDetails ترجع فاضي)
+$insert_exp = $mysqli->query("
+	INSERT INTO boom_exp (uid, exp_current, exp_week, exp_month, exp_total) VALUES ('$new_user_id', 0, 0, 0, 0)
+");
+if (!$insert_exp) {
+	createUserFixDebug('reject_reason', 'sql_insert_exp_failed: ' . $mysqli->error);
+}
+
 createUserFixDebug('success', ['new_user_id' => $new_user_id]);
 
 if (function_exists('redisFlushAll')) {
