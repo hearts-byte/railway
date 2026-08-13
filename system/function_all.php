@@ -1146,6 +1146,9 @@ function userReset($user, $rank){
 	
 	clearNotifyAction($user['user_id'], 'rank_change');
 	$mysqli->query("UPDATE boom_users SET user_rank = '$rank', user_action = user_action + 1, pcount = pcount + 1, naction = naction + 1, vip_end = 0 $color $tfont $name $font $mood $theme $cover $visible $vip WHERE user_id = '{$user['user_id']}'");
+	if($rank > $user['user_rank']){
+		boomNotify('rank_change', array('target'=> $user['user_id'], 'source'=> 'rank', 'icon'=> 'rank', 'custom'=> $rank));
+	}
 	redisUpdateUser($user['user_id']);
 	if($rank < $setting['allow_room']){
 		$get_room = $mysqli->query("SELECT * FROM boom_rooms WHERE room_creator = '{$user['user_id']}' AND room_system = 0");
