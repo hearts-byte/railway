@@ -574,7 +574,7 @@ elseif (isset($_POST["save_admin_delays"])) {
 }
 
 elseif (isset($_POST["save_admin_call"])) {
-    $required = ["set_use_call", "set_can_vcall", "set_can_acall", "set_call_appid", "set_call_secret", "set_live_url", "set_live_appid", "set_live_secret", "set_call_max", "set_call_method", "set_call_cost", "set_can_cgcall", "set_can_gcall", "set_can_mgcall", "set_max_gcall"];
+    $required = ["set_use_call", "set_can_vcall", "set_can_acall", "set_call_appid", "set_call_secret", "set_live_url", "set_live_appid", "set_live_secret", "set_call_max", "set_call_method", "set_call_cost", "set_can_agcall", "set_can_gcall", "set_can_mgcall", "set_max_gcall"];
     foreach ($required as $field) {
         if (!isset($_POST[$field])) {
             echo 2;
@@ -593,12 +593,12 @@ elseif (isset($_POST["save_admin_call"])) {
     $call_max = escape($_POST["set_call_max"]);
     $call_method = escape($_POST["set_call_method"]);
     $call_cost = escape($_POST["set_call_cost"]);
-    $can_cgcall = escape($_POST["set_can_cgcall"]);
+    $can_agcall = escape($_POST["set_can_agcall"]);
     $can_gcall = escape($_POST["set_can_gcall"]);
     $can_mgcall = escape($_POST["set_can_mgcall"]);
     $max_gcall = escape($_POST["set_max_gcall"]);
 
-    $query = "UPDATE boom_setting SET use_call = '$use_call', can_vcall = '$can_vcall', can_acall = '$can_acall', call_appid = '$call_appid', call_secret = '$call_secret', live_url = '$live_url', live_appid = '$live_appid', live_secret = '$live_secret', call_max = '$call_max', call_method = '$call_method', call_cost = '$call_cost', can_cgcall = '$can_cgcall', can_gcall = '$can_gcall', can_mgcall = '$can_mgcall', max_gcall = '$max_gcall' WHERE id = '1'";
+    $query = "UPDATE boom_setting SET use_call = '$use_call', can_vcall = '$can_vcall', can_acall = '$can_acall', call_appid = '$call_appid', call_secret = '$call_secret', live_url = '$live_url', live_appid = '$live_appid', live_secret = '$live_secret', call_max = '$call_max', call_method = '$call_method', call_cost = '$call_cost', can_agcall = '$can_agcall', can_gcall = '$can_gcall', can_mgcall = '$can_mgcall', max_gcall = '$max_gcall' WHERE id = '1'";
 
     $result = $mysqli->query($query);
     error_log("save_admin_call SQL: " . $query);
