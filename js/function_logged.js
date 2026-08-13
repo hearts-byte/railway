@@ -1566,7 +1566,7 @@ uploadChat = function(f){
 			form_data.append("file", f)
 			form_data.append("token", utk)
 			mupload = $.ajax({
-				url: "system/action/file_chat.php",
+				url: "system/action/file_chat_fix.php",
 				dataType: 'json',
 				cache: false,
 				contentType: false,
