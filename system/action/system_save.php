@@ -641,7 +641,7 @@ elseif (isset($_POST["save_admin_modules"])) {
 }
 
 elseif (isset($_POST["save_admin_chat"])) {
-    $required = ["set_max_main", "set_max_private", "set_max_offcount", "set_privload", "set_speed", "set_max_emo", "set_max_room", "set_log_join", "set_log_name", "set_log_action"];
+    $required = ["set_max_main", "set_max_private", "set_max_offcount", "set_speed", "set_max_emo", "set_max_room", "set_log_join", "set_log_name", "set_log_action"];
     foreach ($required as $field) {
         if (!isset($_POST[$field])) {
             echo 2;
@@ -652,7 +652,7 @@ elseif (isset($_POST["save_admin_chat"])) {
     $max_main = escape($_POST["set_max_main"]);
     $max_private = escape($_POST["set_max_private"]);
     $max_offcount = escape($_POST["set_max_offcount"]);
-    $privload = escape($_POST["set_privload"]);
+    $privload = isset($_POST["set_privload"]) ? escape($_POST["set_privload"]) : $setting['privload'];
     $speed = escape($_POST["set_speed"]);
     $max_emo = escape($_POST["set_max_emo"]);
     $max_room = escape($_POST["set_max_room"]);
