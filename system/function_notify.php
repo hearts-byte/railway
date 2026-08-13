@@ -45,6 +45,7 @@ function notifyIconBase($n){
 		case 'call':		return 'call.svg';
 		case 'badge':		return 'badge.svg';
 		case 'level':		return 'level.svg';
+		case 'rank':		return 'star.svg';
 		case 'preact':		return notifyLikeBase($n['notify_custom']);
 		default:			return 'default.svg';
 	}
