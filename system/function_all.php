@@ -2952,7 +2952,7 @@ function clearUserData($u){
 	$mysqli->query("DELETE FROM boom_users_gift WHERE target = '$id'");
 	$mysqli->query("DELETE FROM boom_name WHERE uid = '$id'");
 	$mysqli->query("DELETE FROM boom_data WHERE data_user = '$id'");
-	$mysqli->query("DELETE FROM boom_users_data WHERE data_user = '$id'");
+	$mysqli->query("DELETE FROM boom_users_data WHERE uid = '$id'");
 	$mysqli->query("DELETE FROM boom_call WHERE call_target = '$id' OR call_hunter = '$id'");
 	$mysqli->query("DELETE FROM boom_group_call WHERE call_creator = '$id'");
 	$del_av = unlinkAvatar($av);
@@ -2999,7 +2999,7 @@ function cleanList($type, $c = 0){
 			$mysqli->query("DELETE FROM boom_users_gift WHERE target IN ($list)");
 			$mysqli->query("DELETE FROM boom_name WHERE uid IN ($list)");
 			$mysqli->query("DELETE FROM boom_data WHERE data_user IN ($list)");
-			$mysqli->query("DELETE FROM boom_users_data WHERE data_user IN ($list)");
+			$mysqli->query("DELETE FROM boom_users_data WHERE uid IN ($list)");
 			$mysqli->query("DELETE FROM boom_call WHERE call_target IN ($list) OR call_hunter IN ($list)");
 			$mysqli->query("DELETE FROM boom_group_call WHERE call_creator IN ($list)");
 		}
