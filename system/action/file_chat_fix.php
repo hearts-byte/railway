@@ -100,8 +100,11 @@ if (!file_exists(__DIR__ . '/../../' . $destination)) {
 	exit;
 }
 
+// بناء محتوى الرسالة نفسه (كود HTML للصورة/الملف) بنفس دالة النظام الأصلية
+$html_content = function_exists('boomPostFile') ? boomPostFile($destination, $file_type) : '';
+
 // إرسال الرسالة بنفس دالة النظام الأصلية المستخدمة للرسائل النصية العادية
-$result = userPostChat('', [
+$result = userPostChat($html_content, [
 	'file' => $destination,
 	'filetype' => $file_type,
 ]);
