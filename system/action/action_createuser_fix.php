@@ -115,9 +115,9 @@ $admin_ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
 $insert = $mysqli->query("
 	INSERT INTO boom_users
-	(user_name, user_password, user_email, user_smail, user_ip, user_sex, user_age, user_join, user_move, last_action, user_news, user_rank, user_level, user_roomid, user_status, user_verify, user_tumb)
+	(user_name, user_password, user_email, user_smail, user_ip, user_sex, user_age, user_join, user_move, last_action, user_news, user_rank, user_level, user_roomid, user_status, user_verify, user_tumb, user_language)
 	VALUES
-	('$name', '$hashed_password', '$email', '$email', '$admin_ip', '$gender', '$age', '$now', '$now', '$now', '$now', '1', '1', '$default_room', '1', '1', '$avatar')
+	('$name', '$hashed_password', '$email', '$email', '$admin_ip', '$gender', '$age', '$now', '$now', '$now', '$now', '1', '1', '$default_room', '1', '1', '$avatar', 'ar')
 ");
 
 if (!$insert) {
