@@ -929,24 +929,24 @@ elseif (isset($_POST['activate_addons'], $_POST['addons'])) {
     $nameaddon = escape($_POST['addons']);
     
     if (strpos($nameaddon, 'BLK_') !== false || strpos($nameaddon, 'aps_') !== false) {
-        echo boomCode(0);
+        echo json_encode(["code"=>0,"error"=>"DEBUG: name contains BLK_/aps_"]);
         die();
     }
 
     if ($mysqli->query("SELECT addons FROM boom_addons WHERE addons = '$nameaddon'")->num_rows > 0) {
-        echo boomCode(0);
+        echo json_encode(["code"=>0,"error"=>"DEBUG: already exists in boom_addons table"]);
         die();
     }
 
     $install_file = BOOM_PATH . "/addons/$nameaddon/system/install.php";
     if (!file_exists($install_file)) {
-        echo boomCode(0);
+        echo json_encode(["code"=>0,"error"=>"DEBUG: install file not found at: ".$install_file]);
         die();
     }
 
     require($install_file);
     if (!isset($ad['name'])) {
-        echo boomCode(0);
+        echo json_encode(["code"=>0,"error"=>"DEBUG: ad[name] not set after require"]);
         die();
     }
 
@@ -987,7 +987,7 @@ elseif (isset($_POST['activate_addons'], $_POST['addons'])) {
     } 
     else {
         if (!isset($ad['access'])) {
-            echo boomCode(0);
+            echo json_encode(["code"=>0,"error"=>"DEBUG: ad[access] not set"]);
             die();
         }
 
@@ -998,7 +998,11 @@ elseif (isset($_POST['activate_addons'], $_POST['addons'])) {
                 '$custom1', '$custom2', '$custom3', '$custom4', '$custom5', '$custom6', '$custom7', '$custom8', '$custom9', '$custom10')";
     }
 
-    echo boomCode($mysqli->query($sql) ? 1 : 0);
+    if ($mysqli->query($sql)) {
+        echo json_encode(["code"=>1]);
+    } else {
+        echo json_encode(["code"=>0,"error"=>"DEBUG SQL ERROR: ".$mysqli->error]);
+    }
     die();
 }
 
