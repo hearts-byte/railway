@@ -15,6 +15,9 @@ require_once('../../../system/config_addons.php');
 	</div>
 </div>
 <div id="hide_xo_modal">
+	<div class="xo_players_row" id="xo_players_row">
+		<span class="p_X"><b id="xo_my_inline"></b> <b class="p_Xred">VS</b> <b id="xo_user_inline"></b></span>
+	</div>
 	<p class="turns" id="turns"></p>
 	<div data-uid="" data="<?php echo $data['user_id']; ?>" class="wrap">
 	<div class="X_O" id="A1" onclick="insert(this.id);"></div>
@@ -32,6 +35,7 @@ require_once('../../../system/config_addons.php');
 <script>
 (function(){
 var user_xo = <?php echo $data['user_Xo']; ?>;
+var gameEnded = false;
 var wineer = "<?php echo $lang['wineer']; ?>";
 var cen = "<?php echo $lang['cen']; ?>";
 var error_xo = "<?php echo $lang['error_xo']; ?>";
@@ -87,6 +91,8 @@ showBoXAndInsert = function(){
 		var user = response.user;
 		$("#xo_my").html(my);
 		$("#xo_user").html(user);
+		$("#xo_my_inline").html(my);
+		$("#xo_user_inline").html(user);
 		$("#xo_my").attr("data", "x"); 
 		$(".wrap").attr("data", response.turn); 
 		$(".wrap").attr("data-uid", response.uid); 
@@ -103,6 +109,16 @@ showBoXAndInsert = function(){
 			$("#win").html( wineer +':' + response.win_user)
 		}else if(response.win == 2){
 			$("#win").html(cen);
+		}
+		if(response.win == 1 || response.win == 2){
+			if(!gameEnded){
+				gameEnded = true;
+				clearInterval(window.showBoXAndInserts);
+				setTimeout(function(){
+					EndXO(user_xo);
+					hideModalCustomes();
+				}, 2500);
+			}
 		}
 		if(response.uid == 0){
 			$("#turns").html(wait_start);

@@ -23,6 +23,9 @@ if($data['user_id'] == $data_xo['tid']){
 		<i class="fa fa-times"></i>
 	</div>
 </div>
+ <div class="xo_players_row" id="xo_players_row">
+	<span class="p_X"><b id="xo_my_inline"></b> <b class="p_Xred">VS</b> <b id="xo_user_inline"></b></span>
+ </div>
  <p class="turns" id="turns"></p>
   <div data-uid="" data="" class="wrap">
    <div class="X_O" id="A1" onclick="insert(this.id);"></div>
@@ -38,6 +41,7 @@ if($data['user_id'] == $data_xo['tid']){
   <div class="user_win" id="win"></div>
 <script>
 let user_xo = <?php echo $id; ?>;
+let gameEnded = false;
 let wineer = "<?php echo $lang['wineer']; ?>";
 let cen = "<?php echo $lang['cen']; ?>";
 let error_xo = "<?php echo $lang['error_xo']; ?>";
@@ -106,6 +110,8 @@ showBoXAndInsertuser = function(){
 		//start
 		$("#xo_my").html(my);
 		$("#xo_user").html(user);
+		$("#xo_my_inline").html(my);
+		$("#xo_user_inline").html(user);
 		$("#xo_my").attr("data", "o"); 
 		$(".wrap").attr("data", response.turn); 
 		$(".wrap").attr("data-uid", response.uid); 
@@ -123,6 +129,16 @@ showBoXAndInsertuser = function(){
 			$("#win").html( wineer +':' + response.win_user);
 		}else if(response.win == 2){
 			$("#win").html(cen);
+		}
+		if(response.win == 1 || response.win == 2){
+			if(!gameEnded){
+				gameEnded = true;
+				clearInterval(showBoXAndInsertsuser);
+				setTimeout(function(){
+					EndUserXO(user_xo);
+					hideModalCustomes();
+				}, 2500);
+			}
 		}
 		if(response.uid == 0){
 			$("#turns").html(wait_start);
