@@ -1,0 +1,45 @@
+name: Unzip File Automatically
+
+on:
+  push:
+    paths:
+      - '**/*.zip' # يعمل الإجراء فقط عند رفع أو تعديل أي ملف zip
+
+jobs:
+  unzip-and-commit:
+    runs-on: ubuntu-latest
+    
+    # إعطاء الصلاحية للعملية للكتابة والتعديل على المستودع
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip all ZIP files
+        run: |
+          # البحث عن كافة ملفات zip وفكها في نفس المجلد الموجودة فيه
+          find . -name "*.zip" -exec sh -c '
+            for file; do
+              dir=$(dirname "$file")
+              echo "Unzipping $file into $dir..."
+              unzip -o "$file" -d "$dir"
+              rm "$file" # حذف ملف الـ zip بعد الفك
+            done
+          ' sh {} +
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          
+          # التحقق من وجود تغييرات قبل الحفظ
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-unzipped file and removed archive"
+            git push
+          fi
+
