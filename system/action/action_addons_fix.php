@@ -48,7 +48,8 @@ addonsFixDebug('input', [
 	'addons'     => $nameaddon,
 ]);
 
-if ($nameaddon === '' || strpos($nameaddon, 'BLK_') !== false || strpos($nameaddon, 'aps_') !== false) {
+// تم التحديث: إزالة حظر aps_ لتمكين تفعيل إضافة aps_box_xo والإضافات المماثلة
+if ($nameaddon === '' || strpos($nameaddon, 'BLK_') !== false) {
 	addonsFixDebug('reject_reason', 'invalid_name');
 	addonsFixReply(0, 'invalid_addon_name');
 }
