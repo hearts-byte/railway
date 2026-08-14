@@ -15,7 +15,7 @@ if($data['user_id'] == $data_xo['tid']){
 }
 ?>
 <div class="modal_top_xo">
-	<span class="p_X"><b data="" id="my"></b> <b class="p_Xred">VS</b> <b data="" id="user"></b></span>
+	<span class="p_X"><b data="" id="xo_my"></b> <b class="p_Xred">VS</b> <b data="" id="xo_user"></b></span>
 	<div class="modal_top_element">
 		<i id="hide_custom" onclick="hideBoxXo();" class="fa fa-minus"></i>
 	</div>
@@ -104,9 +104,9 @@ showBoXAndInsertuser = function(){
 		var my = response.my;
 		var user = response.user;
 		//start
-		$("#my").html(my);
-		$("#user").html(user);
-		$("#my").attr("data", "o"); 
+		$("#xo_my").html(my);
+		$("#xo_user").html(user);
+		$("#xo_my").attr("data", "o"); 
 		$(".wrap").attr("data", response.turn); 
 		$(".wrap").attr("data-uid", response.uid); 
 		//A+i
@@ -145,7 +145,7 @@ function insert(id){
 	var turn = $('.wrap').attr('data');
 	var uid = $('.wrap').attr('data-uid');
 	var S = document.getElementById(id);
-	var my = $('#my').attr('data');
+	var my = $('#xo_my').attr('data');
 	if(user_id == turn && S.innerHTML ==""){
 		S.innerHTML= my;
 		saveMoveXouser(id,uid);

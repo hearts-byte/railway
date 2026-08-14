@@ -3,7 +3,7 @@ $load_addons = 'aps_box_xo';
 require_once('../../../system/config_addons.php');
 ?>
 <div class="modal_top_xo">
-	<span class="p_X"><b data="" id="my"></b> <b class="p_Xred">VS</b> <b data="" id="user"></b></span>
+	<span class="p_X"><b data="" id="xo_my"></b> <b class="p_Xred">VS</b> <b data="" id="xo_user"></b></span>
 	<div id="move_Xo" class="modal_top_empty bold">
 	</div>
 	<div class="modal_top_element">
@@ -85,9 +85,9 @@ showBoXAndInsert = function(){
 		success: function(response){
 		var my = response.my;
 		var user = response.user;
-		$("#my").html(my);
-		$("#user").html(user);
-		$("#my").attr("data", "x"); 
+		$("#xo_my").html(my);
+		$("#xo_user").html(user);
+		$("#xo_my").attr("data", "x"); 
 		$(".wrap").attr("data", response.turn); 
 		$(".wrap").attr("data-uid", response.uid); 
 		$("#A1").html(response.A1);
@@ -124,11 +124,11 @@ if(window.showBoXAndInserts){
 }
 window.showBoXAndInserts = setInterval(showBoXAndInsert, 1200);
 showBoXAndInsert();
-function insert(id){
+window.insert = function(id){
 	var turn = $('.wrap').attr('data');
 	var uid = $('.wrap').attr('data-uid');
 	var S = document.getElementById(id);
-	var my = $('#my').attr('data');
+	var my = $('#xo_my').attr('data');
 	if(uid == 0){
 		callSaved(wait_game, 3);
 	}else
