@@ -1,14 +1,46 @@
 <?php
 $load_addons = 'aps_box_xo';
 require_once('../../../system/config_addons.php');
+function computeXoResult($board){
+	$lines = array(
+		array('A1','A2','A3'),
+		array('A4','A5','A6'),
+		array('A7','A8','A9'),
+		array('A1','A4','A7'),
+		array('A2','A5','A8'),
+		array('A3','A6','A9'),
+		array('A1','A5','A9'),
+		array('A3','A5','A7'),
+	);
+	foreach($lines as $line){
+		$v1 = $board[$line[0]] ?? '';
+		$v2 = $board[$line[1]] ?? '';
+		$v3 = $board[$line[2]] ?? '';
+		if($v1 !== '' && $v1 === $v2 && $v2 === $v3){
+			return 1;
+		}
+	}
+	$full = true;
+	foreach(array('A1','A2','A3','A4','A5','A6','A7','A8','A9') as $cell){
+		if(($board[$cell] ?? '') === ''){
+			$full = false;
+			break;
+		}
+	}
+	return $full ? 2 : 0;
+}
 function UpdataDataXo($id,$type) {
 	global $mysqli,$data;
+	$type = (int) $type;
 	$mysqli->query("UPDATE ps_box_xo SET A1='', A2='', A3='', A4='', A5='', A6='', A7='', A8='', A9='', win = '$type', win_id = '{$data['user_id']}' WHERE id = '$id'");
 }
 
 if(isset($_POST['EndGameXo'],$_POST['id'],$_POST['type'])){
    $id = escape($_POST['id']);
-   $type = escape($_POST['type']);
+   $xo_current = getDataXo($id);
+   // تأكيد النتيجة من قاعدة البيانات نفسها بدل الاعتماد على المتصفح فقط
+   $real_type = computeXoResult($xo_current);
+   $type = $real_type > 0 ? $real_type : escape($_POST['type']);
    UpdataDataXo($id,$type);
    $xo = getDataXo($id);
    $user = userDetails($xo['uid']);
