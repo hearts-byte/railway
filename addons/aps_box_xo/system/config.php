@@ -7,24 +7,24 @@ if(!boomAllow(9)){
 ?>
 <style>
 </style>
-<?php echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
+<?php echo elementTitle('aps_box_xo', 'loadLob(\'admin/setting_addons.php\');'); ?>
 <div class="page_full">
 	<div class="page_element">
 		<div class="config_section">
 			<div class="setting_element ">
 				<p class="label"><?php echo $lang['limit_feature']; ?></p>
-					<select id="set_Like_access">
+					<select id="set_Xo_access">
 						<?php echo listRank($data['addons_access'], 1); ?>
 					</select>
 			</div>
-			<button id="save_pasteit" onclick="saveRankLike();" type="button" class="tmargin10 reg_button theme_btn"><i class="fa fa-floppy-o"></i> <?php echo $lang['save']; ?></button>
+			<button id="save_pasteit" onclick="saveRankXo();" type="button" class="tmargin10 reg_button theme_btn"><i class="fa fa-floppy-o"></i> <?php echo $lang['save']; ?></button>
 		</div>
 		<div class="config_section">
 			<script data-cfasync="false">
-				saveRankLike = function(){
-					$.post('addons/AA_profile_like/system/action.php', {
+				saveRankXo = function(){
+					$.post('addons/aps_box_xo/system/action.php', {
 						save: 1,
-						set_Like_access: $('#set_Like_access').val(),
+						set_Xo_access: $('#set_Xo_access').val(),
 						token: utk,
 						}, function(response) {
 							if(response == 5){

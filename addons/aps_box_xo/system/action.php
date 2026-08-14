@@ -15,14 +15,14 @@ if(isset($_POST['EndGameXo'],$_POST['id'],$_POST['type'])){
    if($type == 1){
 	$like_msg = str_replace(array('%data%','%user%'), array($data['user_name']) , '<p>الفائز بالجولة %data% ('.userDetails($xo['tid'])['user_name'].' <b class="p_Xred"> VS </b> '.userDetails($xo['uid'])['user_name'].')</p>');
 	if($xo['type'] == 1){
-		systemPostChat($data['user_roomid'], $like_msg); 
+		botPostChat($data['user_id'], $data['user_roomid'], $like_msg); 
 	}else{
 		postPrivate($data["user_id"], $xo['uid'], $like_msg, 1);
 	}
    }else{
 	$like_msg = str_replace(array('%data%','%user%'), array($data['user_name']) , 'تعادل (<p class="p_X">'.userDetails($xo['tid'])['user_name'].'<b class="p_Xred"> VS </b>'.userDetails($xo['uid'])['user_name'].')</p>');
 	if($xo['type'] == 1){
-		systemPostChat($data['user_roomid'], $like_msg); 
+		botPostChat($data['user_id'], $data['user_roomid'], $like_msg); 
 	}else{
 		postPrivate($data["user_id"], $xo['uid'], $like_msg, 1);
 	}
@@ -43,12 +43,12 @@ if(isset($_POST['EndUserXO'],$_POST['id'])){
 	echo 1;
 	die();
 }
-if(isset($_POST['set_Like_access'])){
-    $rank = escape($_POST['set_Like_access']);
+if(isset($_POST['set_Xo_access'])){
+    $rank = escape($_POST['set_Xo_access']);
     if(!boomAllow(9)){
         die();
     }
-	$mysqli->query("UPDATE boom_addons SET addons_access = '$rank' WHERE addons = 'AA_profile_like'");
+	$mysqli->query("UPDATE boom_addons SET addons_access = '$rank' WHERE addons = 'aps_box_xo'");
 	echo 5;
 	die();
 }
@@ -82,7 +82,7 @@ if(isset($_POST['startXO'])){
 	$xos = $mysqli->insert_id;
 	$mysqli->query("UPDATE boom_users SET user_Xo = '$xos' WHERE user_id = '{$data['user_id']}'");
 	$like_msg = str_replace(array('%data%'), array($data['user_name']) , ' '.$lang['user_start_public'].' <b onclick="userBoxXO('.$xos.','.$data['user_id'].');" class="p_Xred">'.$lang['user_start_click'].'</b> %data%');
-	systemPostChat($data['user_roomid'], $like_msg);
+	botPostChat($data['user_id'], $data['user_roomid'], $like_msg);
 	echo 1;
 	die();
 }

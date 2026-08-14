@@ -30,13 +30,14 @@ require_once('../../../system/config_addons.php');
 	<div class="user_win" id="win"></div>
 </div>
 <script>
-let user_xo = <?php echo $data['user_Xo']; ?>;
-let wineer = "<?php echo $lang['wineer']; ?>";
-let cen = "<?php echo $lang['cen']; ?>";
-let error_xo = "<?php echo $lang['error_xo']; ?>";
-let wait_game = "<?php echo $lang['wait_game']; ?>";
-let wait_start = "<?php echo $lang['wait_start']; ?>";
-let start_me = "<?php echo $lang['start_me']; ?>";
+(function(){
+var user_xo = <?php echo $data['user_Xo']; ?>;
+var wineer = "<?php echo $lang['wineer']; ?>";
+var cen = "<?php echo $lang['cen']; ?>";
+var error_xo = "<?php echo $lang['error_xo']; ?>";
+var wait_game = "<?php echo $lang['wait_game']; ?>";
+var wait_start = "<?php echo $lang['wait_start']; ?>";
+var start_me = "<?php echo $lang['start_me']; ?>";
 
 var wineers = [];
 function winner(){
@@ -118,7 +119,10 @@ showBoXAndInsert = function(){
 	});
 	
 }
-var showBoXAndInserts = setInterval(showBoXAndInsert, 1200);
+if(window.showBoXAndInserts){
+	clearInterval(window.showBoXAndInserts);
+}
+window.showBoXAndInserts = setInterval(showBoXAndInsert, 1200);
 showBoXAndInsert();
 function insert(id){
 	var turn = $('.wrap').attr('data');
@@ -137,4 +141,5 @@ function insert(id){
 		callSaved(error_xo, 3);
 	}
 }
+})();
 </script>
