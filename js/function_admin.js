@@ -1316,7 +1316,7 @@ $(document).ready(function(){
 		if(addonsReply == 1){
 			addonsReply = 0;
 			$.ajax({
-				url: "system/action/system_addons.php",
+				url: "system/action/action_addons_fix.php",
 				type: "post",
 				cache: false,
 				dataType: 'json',
