@@ -3,7 +3,7 @@ FROM php:8.1-apache
 # تثبيت أداة تثبيت الإضافات الجاهزة (تتعامل مع كل الاعتماديات تلقائيًا)
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-RUN install-php-extensions gd zip curl mbstring opcache pdo_mysql mysqli ioncube_loader
+RUN install-php-extensions gd zip curl mbstring opcache pdo_mysql mysqli ioncube_loader redis
 
 # تفعيل mod_rewrite حتى يشتغل ملف htaccess
 RUN a2enmod rewrite
