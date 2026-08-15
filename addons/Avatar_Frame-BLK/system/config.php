@@ -108,7 +108,7 @@ add_frame = function(){
 	}
 }
 save_frame_settings = function(id) {
-	$.post('addons/<?php echo $load_addons; ?>/system/save_settings_fix.php', {
+$.post('addons/<?php echo $load_addons; ?>/system/save_settings_fix_debug.php', {
 		save_settings: 1,
 		set_access: $('#set_access').val(),
 		set_price: $('#settings_price').val(),
