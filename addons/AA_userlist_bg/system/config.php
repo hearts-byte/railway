@@ -1,0 +1,51 @@
+<?php
+$load_addons = 'AA_userlist_bg';
+require_once('../../../system/config_addons.php');
+?>
+<?php echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
+<div class="page_full">
+	<div>
+		<div class="tab_menu">
+			<ul>
+				<li class="tab_menu_item tab_selected" data="aaulbg" data-z="aaulbg_setting"><i class="fa fa-cogs"></i> <?php echo $lang['settings']; ?></li>
+			</ul>
+		</div>
+	</div>
+	<div class="page_element">
+		<div id="aaulbg" class="tpad15">
+			<div id="aaulbg_setting" class="tab_zone">
+				<div class="setting_element">
+					<p class="label"><?php echo $lang['limit_bg_feature']; ?></p>
+					<select id="set_addon_access">
+						<?php echo listRank($addons['addons_access'], 1); ?>
+					</select>
+				</div>
+				<div class="setting_element">
+					<p class="label"><?php echo $lang['limit_bg_feature_staff']; ?></p>
+					<select id="set_addon_access_staff">
+						<?php echo listRank($addons['custom1'], 1); ?>
+					</select>
+				</div>
+				<button onclick="saveSettings();" type="button" class="clear_top reg_button theme_btn"><i class="fa fa-floppy-o"></i> <?php echo $lang['save']; ?></button>
+			</div>
+		</div>
+		<div class="config_section">
+			<script data-cfasync="false" type="text/javascript">
+				saveSettings = function() {
+					$.post('addons/AA_userlist_bg/system/action.php', {
+						set_addon_access: $('#set_addon_access').val(),
+						set_addon_access_staff: $('#set_addon_access_staff').val(),
+						token: utk,
+					}, function(response) {
+						if(response == 1){
+							callSaved('<?php echo $lang['list_bg_saved']; ?>', 1);
+						}
+						else {
+							callSaved('<?php echo $lang['list_bg_error']; ?>', 3);
+						}
+					});
+				}
+			</script>
+		</div>
+	</div>
+</div>

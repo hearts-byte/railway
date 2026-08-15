@@ -1,0 +1,28 @@
+.gift-container{border:1px solid #ccc;text-align:center}
+div.gift-container:hover{border:1px solid #777}
+div.gift-container img{padding:10px 5px 5px;width:90px;height:90px;object-fit:contain}
+div.gift-desc{padding:5px 3px;text-align:center;background:#260132;font-size:10px;color:#fff}
+.gift-responsive{padding:6px;float:left;width:25%}
+@media only screen and (max-width:700px){.gift-responsive{width:33%;margin:6px 0}}
+@media only screen and (max-width:500px){.gift-responsive{width:33%}}
+p.giftheading{padding-bottom:5px;text-align:center;color:#20292f;font-size:17px}
+div.gift-container:hover>div.gift-desc{background:#a703dc;color:#fff}
+.flexcenter{display:table-cell;vertical-align:middle;text-align:center}
+.chat_frame_avatar{display:inline-block;position:relative;vertical-align:top}
+.chat_frame_avatar_inner{height:28px;width:28px;border-radius:50%;display:block;overflow:hidden;cursor:pointer}
+.chat_frame_avatar_inner2{height:30px;width:30px;border-radius:50%;display:block;overflow:hidden;cursor:pointer}
+.user_item_frame_avatar{display:table-cell;vertical-align:middle;width:60px;height:60px;position:relative}
+.user_item_frame_avatar_new{display:table-cell;vertical-align:middle;width:48px;height:48px;position:relative}
+.user_item_frame_inner{width:36px;height:36px;border-radius:50%;display:block;cursor:pointer}
+.under{position:absolute}
+.over,.over2{position:absolute;z-index:1;pointer-events:none}
+.ul_fr_av{left:5px;top:5px}
+.ch_fr_av{left:4px;top:4px}
+.ul_fr_bg,.ch_fr_bg{
+	object-fit:fill;
+	max-width:none;
+	max-height:none;
+	border-radius:0 !important;
+}
+.ul_fr_bg{width:48px;height:48px;left:18px;top:18px;transform:translate(-50%,-50%)}
+.ch_fr_bg{width:54px;height:54px;left:20px;top:20px;transform:translate(-50%,-50%)}
