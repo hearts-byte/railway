@@ -24,6 +24,8 @@ RUN { \
     echo 'post_max_size = 64M'; \
     echo 'display_errors = On'; \
     echo 'error_reporting = E_ALL'; \
+    echo 'log_errors = On'; \
+    echo 'error_log = /var/www/html/php_errors.log'; \
     echo 'session.save_path = "/var/lib/php/sessions"'; \
     echo 'session.cookie_httponly = On'; \
     echo 'session.use_only_cookies = On'; \
@@ -35,9 +37,11 @@ COPY . /var/www/html/
 
 # إعداد الصلاحيات للمجلدات المطلوبة في صفحة التثبيت والرفع
 RUN mkdir -p /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+    && touch /var/www/html/php_errors.log \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/avatar /var/www/html/cover /var/www/html/upload
+    && chmod -R 777 /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+    && chmod 666 /var/www/html/php_errors.log
 
 # ملف تشغيل يهيّئ منفذ Railway الديناميكي ويصلح مشكلة MPM
 COPY start.sh /usr/local/bin/start.sh
