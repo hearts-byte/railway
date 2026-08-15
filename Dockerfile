@@ -16,7 +16,7 @@ RUN mkdir -p /var/lib/php/sessions \
     && chown -R www-data:www-data /var/lib/php/sessions \
     && chmod -R 777 /var/lib/php/sessions
 
-# إعدادات PHP: رفع الحدود + تثبيت وحماية الجلسات + عرض الأخطاء
+# إعدادات PHP: رفع الحدود + تثبيت وحماية الجلسات + عرض الأخطاء + تسجيل الأخطاء
 RUN { \
     echo 'memory_limit = 512M'; \
     echo 'max_execution_time = 300'; \
@@ -36,8 +36,8 @@ RUN { \
 # نسخ ملفات المشروع
 COPY . /var/www/html/
 
-# سكربت تشخيص مؤقت: يسجل تفاصيل أي طلب متعلق بإضافة Avatar_Frame-BLK
-# (POST data + آخر خطأ PHP + حالة الـ output buffer) حتى لو السكربت المشفّر عمل exit بصمت
+# سكربت تشخيص: يسجل تفاصيل أي طلب متعلق بإضافة Avatar_Frame-BLK
+# (POST data + آخر خطأ PHP + حالة الـ output buffer) حتى لو سكربت مشفّر عمل exit بصمت
 RUN mkdir -p /var/www/html/system && { \
     echo '<?php'; \
     echo "if (strpos(\$_SERVER['REQUEST_URI'] ?? '', 'Avatar_Frame-BLK') !== false) {"; \
