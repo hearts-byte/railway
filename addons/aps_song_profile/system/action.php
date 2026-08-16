@@ -1,5 +1,4 @@
 <?php
-global $cody;
 $load_addons = 'aps_song_profile';
 require_once('../../../system/config_addons.php');
 
@@ -7,37 +6,37 @@ if (isset($_POST["get_profile_music"]) && isset($_POST["target"])) {
     echo get_profile_music();
     exit;
 }
-if (isset($_POST["edit_profile_music"]) && boomAllow($data["addons_access"])) {
+if (isset($_POST["edit_profile_music"]) && boomAllow($addons["addons_access"])) {
     echo edit_profile_music();
     exit;
 }
-if (isset($_POST["save_profile_music"]) && isset($_FILES["file"]) && boomAllow($data["addons_access"])) {
+if (isset($_POST["save_profile_music"]) && isset($_FILES["file"]) && boomAllow($addons["addons_access"])) {
     echo save_profile_music();
     exit;
 }
-if (isset($_POST["remove_profile_music"]) && boomAllow($data["addons_access"])) {
+if (isset($_POST["remove_profile_music"]) && boomAllow($addons["addons_access"])) {
     echo remove_profile_music();
     exit;
 }
-if (isset($_POST["save_settings"]) && boomAllow($cody["can_manage_addons"])) {
+if (isset($_POST["save_settings"]) && boomAllow(11)) {
     echo save_settings();
     exit;
 }
 
 function save_settings(){
-    global $data;
+    global $addons;
     global $mysqli;
-    global $cody;
     $addon_access = escape($_POST["set_addon_access"]);
     $set_size = escape($_POST["set_size"]);
-    $mysqli->query("UPDATE boom_addons set addons_access = '" . $addon_access . "', custom1 = '" . $set_size . "'\tWHERE addons = '" . $data["addons"] . "' ");
+    $mysqli->query("UPDATE boom_addons set addons_access = '" . $addon_access . "', custom1 = '" . $set_size . "'\tWHERE addons = '" . $addons["addons"] . "' ");
     return 1;
 }
 function save_profile_music()
 {
     global $data;
+    global $addons;
     global $mysqli;
-    if (0 < $_FILES["file"]["error"] || $data["custom1"] < $_FILES["file"]["size"] / 1024 / 1024) {
+    if (0 < $_FILES["file"]["error"] || $addons["custom1"] < $_FILES["file"]["size"] / 1024 / 1024) {
         return 0;
     }
     $info = pathinfo($_FILES["file"]["name"]);
@@ -59,14 +58,14 @@ function edit_profile_music()
 }
 function get_profile_music()
 {
-    global $data;
+    global $addons;
     global $mysqli;
     $target = escape($_POST["target"]);
     $user = userDetails($target);
     if (empty($user)) {
         return 0;
     }
-    if (!empty($user["profile_music"]) && $data["addons_access"] <= $user["user_rank"]) {
+    if (!empty($user["profile_music"]) && $addons["addons_access"] <= $user["user_rank"]) {
         return addonTemplate("get_profile_music", $user);
     }
     return 0;

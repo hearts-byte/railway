@@ -1,11 +1,10 @@
 <?php
-global $cody;
 $load_addons = 'aps_song_profile';
 require_once('../../../system/config_addons.php');
-if(!boomAllow($cody['can_manage_addons'])){
+if(!boomAllow(11)){
 	die();
 }
-echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');');
+echo elementTitle($addons['addons'], 'loadLob(\'admin/setting_addons.php\');');
 ?>
 <div class="page_full">
 	<div class="page_element">
@@ -14,13 +13,13 @@ echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');');
 				<div class="setting_element">
 					<p class="label"><?php echo $lang['limit_feature']; ?></p>
 					<select id="set_addon_access">
-						<?php echo listRank($data['addons_access'], 1); ?>
+						<?php echo listRank($addons['addons_access'], 1); ?>
 					</select>
 				</div>
 				<div class="setting_element">
 				    <p class="label"><?php echo $lang['max_file']; ?></p>
 				    <select id="set_size">
-					    <?php echo optionCount($data["custom1"], 1, 50, 1, "mb"); ?>
+					    <?php echo optionCount($addons["custom1"], 1, 50, 1, "mb"); ?>
                     </select>
 				</div>
 			</div>
