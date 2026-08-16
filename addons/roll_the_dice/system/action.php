@@ -25,7 +25,7 @@ if(isset($_POST['reset_score']) && boomAllow(10)){
 }
 
 // game
-if(isset($_POST["user"]) && ($data['custom2'] == 1) && ($data['user_roomid'] == $data['custom1']) ){
+if(isset($_POST["user"]) && ($addons['custom2'] == 1) && ($data['user_roomid'] == $addons['custom1']) ){
 	rollTheDice($_POST["user"]);
 	die();
 }

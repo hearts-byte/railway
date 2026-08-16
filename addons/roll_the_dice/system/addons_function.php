@@ -5,7 +5,7 @@
 // for Cody chat
 
 function rollTheDice($user){
-	global $data, $mysqli, $lang;
+	global $data, $mysqli, $lang, $addons;
 
 	$id = $data['user_id'];
 	$exist = $mysqli->query("SELECT user_roomid FROM boom_users WHERE user_id = '$user'");
@@ -54,7 +54,7 @@ function rollTheDice($user){
 	}
 	
 	$scores = '';
-	if ($data['custom3'] == 1){
+	if ($addons['custom3'] == 1){
 		if ($myScore >= $userScore){
 			$scores = '<br><br>' . $lang['score']. ': ' . $score['myScore'] . ' - ' . $score['userScore'] . ' (' . $data['user_name'] . ' - ' . $username . ')';
 		}else{

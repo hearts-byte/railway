@@ -14,7 +14,7 @@ if(!boomAllow(10)){
 ?>
 <style>
 </style>
-<?php echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
+<?php echo elementTitle($addons['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
 
 <div class="page_full">
 	<div>
@@ -58,19 +58,19 @@ if(!boomAllow(10)){
 					<div class="setting_element ">
 						<p class="label"><?php echo $lang['status']; ?></p>
 						<select id="set_dice_game_status">
-							<?php echo onOff($data['custom2']); ?>
+							<?php echo onOff($addons['custom2']); ?>
 						</select>
 					</div>
 					<div class="setting_element ">
 						<p class="label"><?php echo $lang['show_scores']; ?></p>
 						<select id="set_show_scores">
-							<?php echo onOff($data['custom3']); ?>
+							<?php echo onOff($addons['custom3']); ?>
 						</select>
 					</div>
 					<div class="setting_element ">
 						<p class="label"><?php echo $lang['room']; ?></p>
 						<select id="set_dice_game_room">
-							<?php echo roomSelect($data['custom1']); ?>
+							<?php echo roomSelect($addons['custom1']); ?>
 						</select>
 					</div>
 					<button id="save_dice_game" onclick="saveRollTheDice();" type="button" class="tmargin10 reg_button theme_btn"><i class="fa fa-floppy-o"></i> <?php echo $lang['save']; ?></button>
