@@ -5,7 +5,7 @@ function botRank(){
 	return 69;
 }
 function rankList(){
-	return array(0,1,50,69,70,80,90,100,999);
+	return array(0,1,50,69,70,80,90,91,95,99,100,999);
 }
 function rankIcon($rank){
 	switch($rank){
@@ -23,6 +23,12 @@ function rankIcon($rank){
 			return 'admin.svg';
 		case 90:
 			return 'super.svg';
+		case 91:
+			return 'super_admin.svg';
+		case 95:
+			return 'owner_vip.svg';
+		case 99:
+			return 'owner_admin.svg';
 		case 100:
 			return 'owner.svg';
 		default:
@@ -46,6 +52,12 @@ function rankTitle($rank){
 			return $lang['admin'];
 		case 90:
 			return $lang['super_admin'];
+		case 91:
+			return $lang['super_admin_plus'];
+		case 95:
+			return $lang['owner_vip'];
+		case 99:
+			return $lang['owner_admin'];
 		case 100:
 			return $lang['owner'];
 		case 999:
