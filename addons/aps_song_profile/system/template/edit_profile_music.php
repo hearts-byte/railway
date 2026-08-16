@@ -12,5 +12,5 @@
 		</div>
 	</div>
 </div>
-<link href="addons/<?php echo $data['addons']; ?>/files/<?php echo $data['addons']; ?>.css" rel="stylesheet">
-<script src="addons/<?php echo $data['addons']; ?>/files/<?php echo $data['addons']; ?>.js"></script>
+<link href="addons/<?php echo $addons['addons']; ?>/files/<?php echo $addons['addons']; ?>.css" rel="stylesheet">
+<script src="addons/<?php echo $addons['addons']; ?>/files/<?php echo $addons['addons']; ?>.js"></script>
