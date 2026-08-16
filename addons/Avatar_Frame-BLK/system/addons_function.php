@@ -20,3 +20,14 @@ function frames_list_admin(){
 	}
 	return createPag($list, 24, array('template'=> '../addons/'.BOOM_ADDONS.'/system/template/frame_item_admin', 'style'=> 'list'));
 }
+function frames_box_list(){
+	global $mysqli, $data, $addons, $lang;
+	$list = [];
+	$frames = $mysqli->query("SELECT * FROM avatar_frame ORDER BY id ASC");
+	if($frames->num_rows > 0){
+		while($frame = $frames->fetch_assoc()){
+			$list[] = $frame;
+		}
+	}
+	return createPag($list, 24, array('template'=> '../addons/'.BOOM_ADDONS.'/system/template/frame_item', 'style'=> 'list'));
+}
