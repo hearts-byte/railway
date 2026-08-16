@@ -1,4 +1,5 @@
 <?php
+global $cody;
 $load_addons = 'aps_song_profile';
 require_once('../../../system/config_addons.php');
 
@@ -26,6 +27,7 @@ if (isset($_POST["save_settings"]) && boomAllow($cody["can_manage_addons"])) {
 function save_settings(){
     global $data;
     global $mysqli;
+    global $cody;
     $addon_access = escape($_POST["set_addon_access"]);
     $set_size = escape($_POST["set_size"]);
     $mysqli->query("UPDATE boom_addons set addons_access = '" . $addon_access . "', custom1 = '" . $set_size . "'\tWHERE addons = '" . $data["addons"] . "' ");

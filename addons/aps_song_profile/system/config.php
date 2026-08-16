@@ -1,4 +1,5 @@
 <?php
+global $cody;
 $load_addons = 'aps_song_profile';
 require_once('../../../system/config_addons.php');
 if(!boomAllow($cody['can_manage_addons'])){
