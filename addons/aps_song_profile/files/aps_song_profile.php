@@ -51,7 +51,7 @@ $(document).ready(function() {
 				target: t,
 				token: utk,
 			}, function(response) {
-				$('div.clearbox').prepend(response); 
+				$('#probio').prepend(response); 
 			});
 	}
 
