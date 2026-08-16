@@ -3,7 +3,7 @@
 	<div class="setting_element">
 		<div style="width:100%;display: block;" class="input_item main_item base_main">
 		    <?php if(!empty($data['profile_music'])){ ?>
-			   <video style="width: 240px;height: 25px;" controls="" autoplay="" loop=""><source src="upload/upload/<?php echo $data['profile_music']; ?>"></video>
+			   <audio style="width: 240px;height: 30px;" controls="" autoplay="" loop=""><source src="upload/upload/<?php echo $data['profile_music']; ?>" type="audio/mpeg"></audio>
 			  <br>
 			  <button onclick="deleteProfileMusic();" type="button" class="clear_top reg_button delete_btn">
 			  <i class="fa fa-trash"></i>  <?php echo $lang['delete']; ?> </button>	
