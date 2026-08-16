@@ -1,3 +1,4 @@
+<?php global $addons; global $data; ?>
 <div class="form_full pad15">
 	<div class="setting_element">
 		<div style="width:100%;display: block;" class="input_item main_item base_main">
