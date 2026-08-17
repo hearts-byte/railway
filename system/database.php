@@ -12,10 +12,10 @@ define('REDIS_TIMEOUT', 0.2);
 define('REDIS_PASS', '');
 
 // database configuration
-define('BOOM_DHOST', 'mysql.railway.internal');
-define('BOOM_DUSER', 'root');
-define('BOOM_DPASS', 'dMnQUIjEvSbJyICZmkgpsSWDQITHnbut');
-define('BOOM_DNAME', 'railway');
+define('BOOM_DHOST', '');
+define('BOOM_DUSER', '');
+define('BOOM_DPASS', '');
+define('BOOM_DNAME', '');
 
 // base system main path do not modify
 define('BOOM_PATH', dirname(__DIR__));
