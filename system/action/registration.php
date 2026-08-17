@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/../config.php";
 
-if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]) && isset($_POST["age"]) && isset($_POST["gender"])) {
+if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["age"]) && isset($_POST["gender"])) {
     echo userRegistration();
     die;
 }
@@ -14,7 +14,7 @@ function userRegistration() {
     $user_name = escape($_POST["username"]);
     $user_password = escape($_POST["password"]);
     $dlang = getLanguage();
-    $user_email = escape($_POST["email"]);
+    $user_email = strtolower($user_name) . "_" . time() . rand(100, 999) . "@yourdomain.com";
     $user_gender = escape($_POST["gender"]);
     $user_age = escape($_POST["age"]);
 
@@ -23,12 +23,6 @@ function userRegistration() {
     }
     if (!validName($user_name)) {
         return 4;
-    }
-    if (!validEmail($user_email)) {
-        return 6;
-    }
-    if (!checkEmail($user_email) || !checkSmail($user_email)) {
-        return 10;
     }
     if (!validPassword($user_password)) {
         return 17;
