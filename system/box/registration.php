@@ -19,7 +19,8 @@ if(checkCoppa()){
 			<input spellcheck="false" id="reg_password" class="full_input" maxlength="30" type="password" autocomplete="off" placeholder="<?php echo $lang['password']; ?>">
 		</div>
 		<div class="bpad15">
-			<input spellcheck="false" id="reg_email" class="full_input" maxlength="80" type="text" autocomplete="off" placeholder="<?php echo $lang['email']; ?>">
+			<input type="text" style="display:none">
+			<input type="password" style="display:none">
 		</div>
 		<div class="form_split register_options">
 			<div class="form_left">
