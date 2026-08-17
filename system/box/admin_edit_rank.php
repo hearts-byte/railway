@@ -18,6 +18,7 @@ if(!canRankUser($user)){
 	<?php if(useLevel()){ ?>
 	<div class="setting_element">
 		<p class="label"><?php echo $lang['user_level']; ?>: <?php echo $user['user_level']; ?></p>
+		<input type="number" id="level_amount" min="1" value="1" class="reg_input" placeholder="<?php echo $lang['level_up']; ?>"/>
 		<button type="button" class="reg_button theme_btn" onclick="levelUpUser(<?php echo $user['user_id']; ?>);"><?php echo $lang['level_up']; ?></button>
 	</div>
 	<?php } ?>
