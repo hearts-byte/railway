@@ -159,11 +159,10 @@ sendLogin = function(){
 sendRegistration = function() {
 	var upass = $('#reg_password').val();
 	var uuser = $('#reg_username').val();
-	var uemail = $('#reg_email').val();
 	var ugender = $('#login_select_gender').val();
 	var uage = $('#login_select_age').val();
 	var regRecapt = getCaptcha();
-	if(upass == '' || uuser == '' || uemail == ''){
+	if(upass == '' || uuser == ''){
 		callError(system.emptyField);
 		return false;
 	}
@@ -177,11 +176,6 @@ sendRegistration = function() {
 		$('#reg_password').val("");
 		return false;
 	}
-	else if (/^\s+$/.test($('#reg_email').val())){
-		callError(system.emptyField);
-		$('#reg_email').val("");
-		return false;
-	}
 	else if(recapt > 0 && regRecapt == ''){
 		callError(system.missingRecaptcha);
 		return false;
@@ -192,7 +186,6 @@ sendRegistration = function() {
 			$.post('system/action/registration.php', {
 				password: upass,
 				username: uuser,
-				email: uemail,
 				age: uage,
 				gender: ugender,
 				recaptcha: regRecapt,
@@ -204,13 +197,11 @@ sendRegistration = function() {
 						callError(system.error);
 						$('#reg_password').val("");
 						$('#reg_username').val("");
-						$('#reg_email').val("");	
 					}
 					else if (response == 3){
 						callError(system.error);
 						$('#reg_password').val("");
 						$('#reg_username').val("");
-						$('#reg_email').val("");
 					}
 					else if (response == 4){
 						callError(system.invalidUsername);
