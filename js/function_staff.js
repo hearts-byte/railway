@@ -301,8 +301,14 @@ $.post('system/action/action_rank_fix.php', {
 	});
 }
 levelUpUser = function(target){
+	var amount = parseInt($('#level_amount').val());
+	if(!amount || amount < 1){
+		callError(system.error);
+		return;
+	}
 	$.post('system/action/action_level_fix.php', {
 			level_up: target,
+			amount: amount,
 		}, function(response) {
 			if(response == 0){
 				callError(system.cannotUser);
