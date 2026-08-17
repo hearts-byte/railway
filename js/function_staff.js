@@ -300,6 +300,25 @@ $.post('system/action/action_rank_fix.php', {
 			hideOver();
 	});
 }
+levelUpUser = function(target){
+	$.post('system/action/action_level_fix.php', {
+			level_up: target,
+		}, function(response) {
+			if(response == 0){
+				callError(system.cannotUser);
+			}
+			else if(response == 1){
+				callSuccess(system.saved);
+				if($('#mprofilemenu:visible').length){
+					getProfile(target);
+				}
+			}
+			else {
+				callError(system.error);
+			}
+			hideOver();
+	});
+}
 changeUserVerify = function(target){
 	$.post('system/action/action_users.php', {
 		verify_member: target,
