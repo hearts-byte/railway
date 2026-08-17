@@ -46,7 +46,7 @@ if(isset($_POST['add_frame']) && isset($_FILES['file']) && canManageAddons()){
 	$file_name = encodeFile($extension);
 	move_uploaded_file($_FILES['file']['tmp_name'], BOOM_PATH . '/addons/' . $addons['addons'] . '/files/frames/' . $file_name);
 	$mysqli->query("INSERT INTO avatar_frame (price, `rank`, method, tumb) VALUES ('$price', '$rank', '$method', '$file_name')");
-	redisDeleteObject('avatar_frame:list');
+	redisDel('avatar_frame:list');
 	echo 1;
 	exit;
 }
@@ -69,7 +69,7 @@ if(isset($_POST['save_frame']) && canManageAddons()){
 	$rank   = escape($_POST['save_rank']);
 	$method = escape($_POST['save_method']);
 	$mysqli->query("UPDATE avatar_frame SET price = '$price', `rank` = '$rank', method = '$method' WHERE id = '$id'");
-	redisDeleteObject('avatar_frame:list');
+	redisDel('avatar_frame:list');
 	echo 1;
 	exit;
 }
@@ -83,7 +83,7 @@ if(isset($_POST['delete_frame']) && canManageAddons()){
 		@unlink(BOOM_PATH . '/addons/' . $addons['addons'] . '/files/frames/' . $frame['tumb']);
 		$mysqli->query("UPDATE boom_users SET avatar_frame = 0 WHERE avatar_frame = '$id'");
 		$mysqli->query("DELETE FROM avatar_frame WHERE id = '$id'");
-		redisDeleteObject('avatar_frame:list');
+		redisDel('avatar_frame:list');
 		echo 1;
 	} else {
 		echo 0;
