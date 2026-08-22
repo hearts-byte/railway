@@ -1,6 +1,6 @@
 <?php
 if (!defined('IN_SCRIPT')) { define('IN_SCRIPT', true); }
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/functions.php';
 
 /**
  * استدعِ هذه الدالة من داخل قالب الغرفة/الشات الرئيسي في المكان الذي

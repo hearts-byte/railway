@@ -15,7 +15,7 @@
  */
 
 define('IN_SCRIPT', true);
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/upload_handler.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -26,12 +26,27 @@ function stories_json($data)
     exit;
 }
 
+$do = isset($_REQUEST['do']) ? $_REQUEST['do'] : '';
+
+/* ==================== حفظ إعدادات الإضافة (من لوحة التحكم) ====================
+   هذا الطلب يُرسل بتوكن الأدمن (utk) لا بجلسة عضو عادي، لذلك يُعالج
+   قبل فحص تسجيل الدخول الخاص بالأعضاء. */
+if ($do === 'save_settings') {
+    if (!function_exists('boomAllow')) {
+        require_once __DIR__ . '/../../../system/config_addons.php';
+    }
+    if (!function_exists('boomAllow') || !boomAllow(9)) {
+        stories_json(array('success' => false, 'error' => 'صلاحيات غير كافية'));
+    }
+    stories_save_settings($_POST);
+    stories_json(array('success' => true));
+}
+
 if (!stories_is_logged_in()) {
     stories_json(array('success' => false, 'error' => 'يجب تسجيل الدخول أولاً'));
 }
 
 $user_id = stories_current_user_id();
-$do = isset($_REQUEST['do']) ? $_REQUEST['do'] : '';
 $db = stories_db();
 
 switch ($do) {
@@ -43,9 +58,10 @@ switch ($do) {
             stories_json(array('success' => false, 'error' => 'نوع الستوري غير صالح'));
         }
 
+        $settings = stories_settings();
         $gold_cost = 0;
-        if (STORIES_GOLD_ENABLED) {
-            $gold_cost = max(0, (int) ($_POST['gold_cost'] ?? STORIES_GOLD_COST_DEFAULT));
+        if ($settings['gold_enabled']) {
+            $gold_cost = max(0, (int) ($_POST['gold_cost'] ?? $settings['gold_cost']));
         }
 
         $bg_color = stories_clean($_POST['bg_color'] ?? '#6c5ce7');
@@ -57,7 +73,7 @@ switch ($do) {
             if ($text === '') {
                 stories_json(array('success' => false, 'error' => 'لا يمكن نشر ستوري نصية فارغة'));
             }
-            if (mb_strlen($text) > STORIES_MAX_TEXT_LENGTH) {
+            if (mb_strlen($text) > $settings['max_text_length']) {
                 stories_json(array('success' => false, 'error' => 'النص طويل جداً'));
             }
             $content = stories_clean($text);
@@ -77,7 +93,7 @@ switch ($do) {
             stories_json(array('success' => false, 'error' => 'رصيد الذهب غير كافٍ لنشر هذه الستوري'));
         }
 
-        $hours = STORIES_DURATION_HOURS;
+        $hours = $settings['duration_hours'];
         $stmt = $db->prepare('INSERT INTO cody_stories (user_id, type, content, bg_color, text_color, gold_cost, created_at, expires_at)
                                VALUES (?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? HOUR))');
         $stmt->bind_param('isssiii', $user_id, $type, $content, $bg_color, $text_color, $gold_cost, $hours);
