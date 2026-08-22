@@ -56,7 +56,7 @@ $stories_me_avatar = htmlspecialchars($stories_me['avatar'] ?? '/images/default_
                 <video id="stories-video-preview" class="stories-media-preview" style="display:none;" controls></video>
             </div>
 
-            <?php if (STORIES_GOLD_ENABLED): ?>
+            <?php if (stories_settings()['gold_enabled']): ?>
             <div class="stories-gold-row">
                 <label>
                     <input type="checkbox" id="stories-gold-toggle">
