@@ -1,4 +1,11 @@
-<?php if (!defined('IN_SCRIPT')) { die('Access Denied'); }
+<?php
+if (!defined('IN_SCRIPT')) {
+    define('IN_SCRIPT', true);
+    require_once __DIR__ . '/../system/functions.php';
+}
+if (!function_exists('stories_is_logged_in') || !stories_is_logged_in()) {
+    return;
+}
 $stories_me = stories_get_user(stories_current_user_id());
 $stories_me_avatar = htmlspecialchars($stories_me['avatar'] ?? '/images/default_avatar.png');
 ?>
