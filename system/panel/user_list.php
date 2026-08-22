@@ -1,6 +1,10 @@
 <?php
 require('../config_session.php');
 
+// شريط الستوريات - يُحمّل قبل إغلاق اتصال قاعدة البيانات لأن الإضافة تحتاجه
+require_once __DIR__ . '/../../addons/stories/system/addons_function.php';
+$stories_bar_html = function_exists('stories_render_bar') ? stories_render_bar() : '';
+
 $check_action = getDelay();
 $online_delay = time() - ( 86400 * 7 );
 $online_user = '';
@@ -65,6 +69,7 @@ if($setting['max_offcount'] > 0){
 
 ?>
 <div id="container_user" class="pad10">
+	<?php echo $stories_bar_html; ?>
 	<?php if($onair_user != ''){ ?>
 	<div class="user_count">
 		<div class="bcell">
