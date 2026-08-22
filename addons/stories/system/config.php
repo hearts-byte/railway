@@ -43,8 +43,7 @@ $s = stories_settings();
 		<div class="config_section">
 			<script data-cfasync="false">
 				saveStoriesSettings = function(){
-					$.post('addons/stories/system/action.php', {
-						do: 'save_settings',
+					$.post('addons/stories/system/save_settings.php', {
 						access: $('#set_stories_access').val(),
 						duration_hours: $('#set_stories_duration').val(),
 						max_text_length: $('#set_stories_max_text').val(),
