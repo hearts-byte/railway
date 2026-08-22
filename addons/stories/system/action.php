@@ -15,6 +15,16 @@
  */
 
 define('IN_SCRIPT', true);
+
+$do = isset($_REQUEST['do']) ? $_REQUEST['do'] : '';
+
+// لطلب حفظ الإعدادات (توكن أدمن utk): نحمّل ملف النواة أولاً لأنه يفتح
+// الجلسة بنفسه؛ تحميله بعد functions.php يسبب استدعاء session_start() مرتين
+// وطباعة Notice يفسد استجابة JSON.
+if ($do === 'save_settings' && !function_exists('boomAllow')) {
+    require_once __DIR__ . '/../../../system/config_addons.php';
+}
+
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/upload_handler.php';
 
@@ -26,15 +36,10 @@ function stories_json($data)
     exit;
 }
 
-$do = isset($_REQUEST['do']) ? $_REQUEST['do'] : '';
-
 /* ==================== حفظ إعدادات الإضافة (من لوحة التحكم) ====================
    هذا الطلب يُرسل بتوكن الأدمن (utk) لا بجلسة عضو عادي، لذلك يُعالج
    قبل فحص تسجيل الدخول الخاص بالأعضاء. */
 if ($do === 'save_settings') {
-    if (!function_exists('boomAllow')) {
-        require_once __DIR__ . '/../../../system/config_addons.php';
-    }
     if (!function_exists('boomAllow') || !boomAllow(9)) {
         stories_json(array('success' => false, 'error' => 'صلاحيات غير كافية'));
     }
