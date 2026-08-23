@@ -15,6 +15,13 @@
  */
 
 define('IN_SCRIPT', true);
+
+// نحمّل جلسة نواة CodyChat عشان يتوفر $data['user_id'] (المستخدم الحالي)
+// قبل ما تستخدمه دوال الإضافة لمعرفة هوية المستخدم المسجّل دخوله.
+if (!isset($GLOBALS['data']['user_id'])) {
+    require_once __DIR__ . '/../../../system/config_session.php';
+}
+
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/upload_handler.php';
 
