@@ -10,7 +10,7 @@ $stories_me = stories_get_user(stories_current_user_id());
 $stories_me_avatar = htmlspecialchars($stories_me['avatar'] ?? '/images/default_avatar.png');
 ?>
 <!-- ==================== شريط الستوريات العلوي ==================== -->
-<div id="stories-bar" class="stories-bar" style="visibility:hidden;">
+<div id="stories-bar" class="stories-bar">
     <div class="stories-item stories-add-item" id="stories-add-btn" title="إضافة ستوري">
         <div class="stories-avatar-ring stories-ring-add">
             <img src="<?php echo $stories_me_avatar; ?>" alt="">

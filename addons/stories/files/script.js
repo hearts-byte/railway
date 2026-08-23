@@ -23,12 +23,10 @@
     document.addEventListener('DOMContentLoaded', init);
 
     function init() {
-        var bar = document.getElementById('stories-bar');
-        if (!bar) return; // الإضافة غير مضمّنة بهذه الصفحة
+        if (!document.getElementById('stories-bar')) return; // الإضافة غير مضمّنة بهذه الصفحة
         loadBar();
         bindCreateModal();
         bindViewerControls();
-        bar.style.visibility = 'visible';
     }
 
     /* ==================== طلبات AJAX ==================== */
