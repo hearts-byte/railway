@@ -8,8 +8,8 @@ $aa_gn_logs = aaGlobalNotifyRecentLogs(10);
 	<div>
 		<div class="tab_menu">
 			<ul>
-				<li class="tab_menu_item tab_selected" data="aagn_send" data-z="aagn_send_zone"><i class="fa fa-bullhorn"></i> <?php echo $lang['global_notify_send']; ?></li>
-				<li class="tab_menu_item" data="aagn_setting" data-z="aagn_setting_zone"><i class="fa fa-cogs"></i> <?php echo $lang['settings']; ?></li>
+				<li class="tab_menu_item tab_selected" data="aagn_send" data-z="aagn_send"><i class="fa fa-bullhorn"></i> <?php echo $lang['global_notify_send']; ?></li>
+				<li class="tab_menu_item" data="aagn_setting" data-z="aagn_setting"><i class="fa fa-cogs"></i> <?php echo $lang['settings']; ?></li>
 			</ul>
 		</div>
 	</div>
