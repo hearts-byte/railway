@@ -16,10 +16,14 @@
 
 define('IN_SCRIPT', true);
 
-// نحمّل جلسة نواة CodyChat عشان يتوفر $data['user_id'] (المستخدم الحالي)
-// قبل ما تستخدمه دوال الإضافة لمعرفة هوية المستخدم المسجّل دخوله.
+// نحمّل جلسة نواة CodyChat عشان يتوفر $data['user_id'] (المستخدم الحالي).
+// ملف config_session.php يستخدم مسارات نسبية (require("database.php"))
+// فلازم نغيّر مجلد العمل مؤقتاً لمجلد system/ الأصلي قبل تحميله.
 if (!isset($GLOBALS['data']['user_id'])) {
-    require_once __DIR__ . '/../../../system/config_session.php';
+    $__stories_cwd = getcwd();
+    chdir(__DIR__ . '/../../../system');
+    require_once 'config_session.php';
+    chdir($__stories_cwd);
 }
 
 require_once __DIR__ . '/functions.php';
