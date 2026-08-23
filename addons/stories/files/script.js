@@ -45,11 +45,13 @@
 
     /* ==================== طلبات AJAX ==================== */
     function apiGet(params) {
+        params = Object.assign({}, params, { token: (typeof utk !== 'undefined' ? utk : '') });
         return fetch(API + '?' + new URLSearchParams(params), { credentials: 'same-origin' })
             .then(function (r) { return r.json(); });
     }
     function apiPost(params, formData) {
         formData = formData || new FormData();
+        params = Object.assign({}, params, { token: (typeof utk !== 'undefined' ? utk : '') });
         Object.keys(params).forEach(function (k) { formData.append(k, params[k]); });
         return fetch(API, { method: 'POST', credentials: 'same-origin', body: formData })
             .then(function (r) { return r.json(); });
