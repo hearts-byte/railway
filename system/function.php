@@ -907,7 +907,7 @@ function randomKey($v){
 	return $text;
 }
 function boomUnderClear($t){
-	return str_replace('_', ' ', $t);
+	return str_replace('_', ' ', (string)$t);
 }
 function allowGuest(){
 	global $setting;
