@@ -135,6 +135,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	var systemLoaded = 0;
 </script>
 <?php } ?>
+<?php if (boomLogged()) {
+    require_once __DIR__ . '/../addons/stories/system/addons_function.php';
+    echo stories_assets();
+} ?>
 </head>
 <body>
 <?php
