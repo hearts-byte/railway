@@ -22,8 +22,22 @@
 
     document.addEventListener('DOMContentLoaded', init);
 
+    // نافذة المتصلين تتحدّث دورياً عبر AJAX وتستبدل محتوى الحاوية بالكامل،
+    // فتفقد أزرار الإضافة (وشريط الستوريات نفسه) أي أحداث كانت مربوطة عليها.
+    // هذا المراقب يعيد الربط تلقائياً كل مرة يظهر فيها شريط جديد بالصفحة.
+    var storiesObserver = new MutationObserver(function () {
+        init();
+    });
+    storiesObserver.observe(document.body || document.documentElement, {
+        childList: true,
+        subtree: true,
+    });
+
     function init() {
-        if (!document.getElementById('stories-bar')) return; // الإضافة غير مضمّنة بهذه الصفحة
+        var bar = document.getElementById('stories-bar');
+        if (!bar) return; // الإضافة غير مضمّنة بهذه الصفحة
+        if (bar.dataset.storiesBound) return; // مربوطة مسبقاً، تجنّب ازدواج الأحداث
+        bar.dataset.storiesBound = '1';
         loadBar();
         bindCreateModal();
         bindViewerControls();
