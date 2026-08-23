@@ -3,7 +3,7 @@ $load_addons = 'AA_global_notify';
 require_once('../../../system/config_addons.php');
 $aa_gn_logs = aaGlobalNotifyRecentLogs(10);
 ?>
-<?php echo elementTitle($data['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
+<?php echo elementTitle($lang['addons'], 'loadLob(\'admin/setting_addons.php\');'); ?>
 <div class="page_full">
 	<div>
 		<div class="tab_menu">
