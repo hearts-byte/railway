@@ -51,7 +51,7 @@ function stories_settings()
 
     $defaults = array(
         'duration_hours'   => 24,
-        'gold_enabled'     => 1,
+        'gold_enabled'     => 0,
         'gold_cost'        => 0,
         'max_text_length'  => 300,
         'access'           => 0,
@@ -106,12 +106,11 @@ function stories_save_settings($input)
 }
 
 /* -------------------- أسماء جدول وأعمدة الأعضاء لديك -------------------- */
-/* عدّل هذه القيم فقط لتطابق بنية جدول الأعضاء الحالي في قاعدة بياناتك */
-define('STORIES_USERS_TABLE', 'users');
-define('STORIES_USER_ID_COL', 'id');
-define('STORIES_USER_NAME_COL', 'username');
-define('STORIES_USER_AVATAR_COL', 'avatar');
-define('STORIES_USER_GOLD_COL', 'gold');
+define('STORIES_USERS_TABLE', 'boom_users');
+define('STORIES_USER_ID_COL', 'user_id');
+define('STORIES_USER_NAME_COL', 'user_name');
+define('STORIES_USER_AVATAR_COL', 'user_tumb');
+define('STORIES_USER_GOLD_COL', 'user_id'); // مؤقت: لا نعرف اسم عمود الذهب الفعلي عندك، والذهب معطّل افتراضياً أدناه
 
 /* -------------------- الاتصال بقاعدة البيانات -------------------- */
 function stories_db()
@@ -149,7 +148,11 @@ function stories_db()
 /* -------------------- المستخدم الحالي -------------------- */
 function stories_current_user_id()
 {
-    // غيّر/أضف اسم مفتاح الجلسة الفعلي في سكربتك إذا كان مختلفاً
+    // نواة CodyChat تجهّز بيانات المستخدم في $data['user_id'] (مو $_SESSION العادية)
+    if (!empty($GLOBALS['data']['user_id'])) {
+        return (int) $GLOBALS['data']['user_id'];
+    }
+    // احتياطي: بعض الإصدارات قد تستخدم $_SESSION فعلاً
     foreach (array('user_id', 'id', 'uid') as $key) {
         if (!empty($_SESSION[$key])) {
             return (int) $_SESSION[$key];
