@@ -45,8 +45,10 @@
 
     /* ==================== طلبات AJAX ==================== */
     function apiGet(params) {
+        var fd = new FormData();
         params = Object.assign({}, params, { token: (typeof utk !== 'undefined' ? utk : '') });
-        return fetch(API + '?' + new URLSearchParams(params), { credentials: 'same-origin' })
+        Object.keys(params).forEach(function (k) { fd.append(k, params[k]); });
+        return fetch(API, { method: 'POST', credentials: 'same-origin', body: fd })
             .then(function (r) { return r.json(); });
     }
     function apiPost(params, formData) {
