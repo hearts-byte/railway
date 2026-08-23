@@ -20,13 +20,18 @@ function aaGlobalNotifyGetAllUsers(){
 function aaGlobalNotifySend($message, $publishAs){
 	global $mysqli, $data, $setting;
 
-	$message = trim(escape($message));
+	$message = trim(strip_tags($message));
 	if($message === ''){
 		return 0;
 	}
 	if(mb_strlen($message) > 300){
 		$message = mb_substr($message, 0, 300);
 	}
+
+	// convert :059: style emoticon shortcuts to actual <img> emoticons
+	$message = emoticon($message);
+	// escape for safe SQL storage without breaking the emoticon <img> tags
+	$message = $mysqli->real_escape_string($message);
 
 	$publishAs = ($publishAs === 'self') ? 'self' : 'system';
 	$hunter = ($publishAs === 'self') ? (int) $data['user_id'] : (int) $setting['system_id'];
