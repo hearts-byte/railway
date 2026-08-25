@@ -1,0 +1,50 @@
+/* ===== تكبير أزرار الهيدر العلوي (البريد - اضافة صديق - الجرس - العلم) ===== */
+.head_option {
+	width: 60px !important;
+	height: 60px !important;
+	font-size: 26px !important;
+	border-radius: 12px !important;
+	margin: 0 4px !important;
+	display: table-cell !important;
+	vertical-align: middle !important;
+	transition: transform 0.15s ease;
+}
+.head_option:hover {
+	transform: translateY(-2px);
+}
+
+/* لون مختلف لكل زر بالترتيب (زي الصورة الثانية) */
+.head_option:nth-of-type(1) { background:#5a9bd4 !important; color:#fff !important; }
+.head_option:nth-of-type(2) { background:#4caf50 !important; color:#fff !important; }
+.head_option:nth-of-type(3) { background:#f5a623 !important; color:#fff !important; }
+.head_option:nth-of-type(4) { background:#9b59b6 !important; color:#fff !important; }
+.head_option:nth-of-type(5) { background:#e74c3c !important; color:#fff !important; }
+.head_option:nth-of-type(6) { background:#1abc9c !important; color:#fff !important; }
+
+/* ===== تكبير أزرار الشريط السفلي ===== */
+.footer_item {
+	width: 60px !important;
+	height: 60px !important;
+	border-radius: 50% !important;
+	margin: 0 5px !important;
+}
+.i_btm {
+	font-size: 26px !important;
+}
+.footer_item:nth-of-type(1) { background:#5a9bd4 !important; }
+.footer_item:nth-of-type(2) { background:#4caf50 !important; }
+.footer_item:nth-of-type(3) { background:#f5a623 !important; }
+.footer_item:nth-of-type(4) { background:#9b59b6 !important; }
+.footer_item:nth-of-type(5) { background:#e74c3c !important; }
+.footer_item:nth-of-type(6) { background:#1abc9c !important; }
+.footer_item:nth-of-type(7) { background:#3498db !important; }
+.footer_item:nth-of-type(8) { background:#e67e22 !important; }
+
+/* ===== تكبير زر الإرسال في مربع الكتابة ===== */
+.send_button, #send_message_btn {
+	width: 46px !important;
+	height: 46px !important;
+	border-radius: 50% !important;
+	background:#9b59b6 !important;
+	color:#fff !important;
+}
