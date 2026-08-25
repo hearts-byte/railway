@@ -4,99 +4,99 @@
    ========================================================= */
 
 /* ---------- الهيدر العلوي ---------- */
-#header2, #header_full { height:64px; }
-#chat_head { height:64px; padding:0 8px; }
-.empty_subhead { height:64px; }
+#header2, #header_full { height:58px; }
+#chat_head { height:58px; padding:0 8px; }
+.empty_subhead { height:58px; }
 
-#main_mob_menu { width:64px; font-size:22px; }
-#open_login_menu { width:64px; font-size:30px; }
-.head_logo img, .chat_head_logo img { height:52px; }
+#main_mob_menu { width:58px; font-size:19px; }
+#open_login_menu { width:58px; font-size:22px; }
+.head_logo img, .chat_head_logo img { height:47px; }
 .head_logo, .chat_head_logo { width:200px; }
-.head_option { width:56px; font-size:22px; }
+.head_option { width:50px; font-size:19px; }
 
 /* بادجات الحالة/الأفاتار العلوية */
-.stat_av { width:52px; height:52px; }
-.top_status { width:15px; height:15px; }
+.stat_av { width:47px; height:47px; }
+.top_status { width:13px; height:13px; }
 
 /* ---------- القائمة الجانبية اليسار ---------- */
-#left_menu { width:64px; font-size:24px; }
-.left_menu_item { height:52px; border-radius:12px; margin-bottom:12px; }
+#left_menu { width:58px; font-size:24px; }
+.left_menu_item { height:47px; border-radius:10px; margin-bottom:10px; }
 
 /* ---------- شريط الأزرار العلوي داخل الغرفة (panel_bar) ---------- */
-.panel_bar { height:52px; }
-.panel_bar_item, .panel_option, .left_bar_item { width:52px; font-size:22px; }
+.panel_bar { height:47px; }
+.panel_bar_item, .panel_option, .left_bar_item { width:47px; font-size:19px; }
 
 /* ---------- الشريط السفلي (footer) ---------- */
-.footer_item { width:56px; }
-.i_btm { font-size:26px; }
+.footer_item { width:50px; }
+.i_btm { font-size:22px; }
 
 /* أيقونات الإشعارات فوق الأزرار */
-.foot_notify, .head_notify { width:14px; height:14px; }
-.menu_notify, .pm_notify { font-size:15px; padding:2px 7px; }
-.side_notify { width:14px; height:14px; }
+.foot_notify, .head_notify { width:12px; height:12px; }
+.menu_notify, .pm_notify { font-size:14px; padding:2px 6px; }
+.side_notify { width:12px; height:12px; }
 
 /* ---------- البادجات (pbadge) ---------- */
-.pbadge { width:52px; height:52px; }
-.pbadge_img { width:52px; max-height:52px; }
-.pbadge_count { width:22px; height:22px; font-size:12px; }
-.badge_box_count { width:52px; height:52px; margin-left:-52px; }
-.badge_info_icon { width:52px; }
-.badge_info_icon img { height:52px; }
+.pbadge { width:47px; height:47px; }
+.pbadge_img { width:47px; max-height:47px; }
+.pbadge_count { width:19px; height:19px; font-size:11px; }
+.badge_box_count { width:47px; height:47px; margin-left:-47px; }
+.badge_info_icon { width:47px; }
+.badge_info_icon img { height:47px; }
 
 /* ---------- علم اللغة ---------- */
-.lang_flag, .intro_lang { width:32px; }
-.lang_flag_box { width:48px; }
+.lang_flag, .intro_lang { width:28px; }
+.lang_flag_box { width:42px; }
 
 /* ---------- فقاعات الرسائل (bubble) ---------- */
-.bubble { padding:12px 16px; border-radius:16px; font-size:16px; line-height:1.5em; }
+.bubble { padding:10px 14px; border-radius:14px; font-size:14px; line-height:1.45em; }
 .chat_tmessage { max-width:min(1200px, calc(100% - 20px)); }
-.preview_bubble { padding:6px 10px; border-radius:8px; }
-#preview_text { padding:8px 14px; font-size:16px; }
+.preview_bubble { padding:5px 9px; border-radius:8px; }
+#preview_text { padding:6px 12px; font-size:14px; }
 
 /* ---------- أفاتارات الإشعارات ---------- */
-.notify_avatar, .notify_avatar img { width:52px; height:52px; }
-.notify_icon { width:26px !important; height:26px !important; }
-.notify_reaction, .notify_prolike, .notify_gold { width:20px; height:20px; }
+.notify_avatar, .notify_avatar img { width:47px; height:47px; }
+.notify_icon { width:23px !important; height:23px !important; }
+.notify_reaction, .notify_prolike, .notify_gold { width:18px; height:18px; }
 
 /* ---------- الإشعارات العلوية (toast) ---------- */
-.top_notify_avatar, .top_notify_avatar img { width:52px; height:52px; }
-.top_notify_icon, .top_notify_icon img { width:38px; height:38px; }
+.top_notify_avatar, .top_notify_avatar img { width:47px; height:47px; }
+.top_notify_icon, .top_notify_icon img { width:33px; height:33px; }
 
 /* ---------- عناصر الغرف (rooms) ---------- */
-.room_icon_wrap, .room_icon { width:72px; height:72px; }
-.room_cicon_wrap, .room_cicon { width:60px; height:60px; }
-.room_name { font-size:18px; }
-.room_cname { font-size:16px; }
-.room_description { font-size:13px; }
+.room_icon_wrap, .room_icon { width:64px; height:64px; }
+.room_cicon_wrap, .room_cicon { width:53px; height:53px; }
+.room_name { font-size:16px; }
+.room_cname { font-size:14px; }
+.room_description { font-size:12px; }
 
 /* ---------- مشغل الصوت ---------- */
-.player_menu, .player_sound { width:48px; font-size:22px; }
-.player_button { width:44px; font-size:34px; }
-#sound_display { width:30px; font-size:22px; }
-.splay_btn { width:44px; }
-#current_play_btn { font-size:40px; }
-.footer_play { font-size:28px; }
+.player_menu, .player_sound { width:42px; font-size:19px; }
+.player_button { width:39px; font-size:29px; }
+#sound_display { width:26px; font-size:19px; }
+.splay_btn { width:39px; }
+#current_play_btn { font-size:34px; }
+.footer_play { font-size:24px; }
 
 /* ---------- أفاتار المينيو العلوي ---------- */
-.avmmenu { width:52px; }
-.avmmenu img { width:52px; height:52px; }
-.gold_icon, .ruby_icon { width:22px; }
-.gold_icon img, .ruby_icon img { width:22px; height:22px; }
-.gold_text, .ruby_text { font-size:18px; }
-.menuname { font-size:18px; }
+.avmmenu { width:47px; }
+.avmmenu img { width:47px; height:47px; }
+.gold_icon, .ruby_icon { width:19px; }
+.gold_icon img, .ruby_icon img { width:19px; height:19px; }
+.gold_text, .ruby_text { font-size:16px; }
+.menuname { font-size:16px; }
 
 /* ---------- صندوق الغرفة الحالية بالقائمة ---------- */
-.roomcv { width:52px; }
-.roomcv img { width:52px; }
-.mroom_name { font-size:18px; }
-.mroom_text { font-size:13px; }
+.roomcv { width:47px; }
+.roomcv img { width:47px; }
+.mroom_name { font-size:16px; }
+.mroom_text { font-size:12px; }
 
 /* ---------- أزرار عامة (macro/micro/large) ---------- */
-.macro_button { padding:4px 12px; font-size:13px; }
-.micro_button { padding:5px 12px; font-size:14px; }
-.large_button { padding:13px 24px; font-size:18px; }
-.large_button_rounded { padding:15px 24px; font-size:18px; }
+.macro_button { padding:3px 10px; font-size:12px; }
+.micro_button { padding:4px 10px; font-size:14px; }
+.large_button { padding:11px 20px; font-size:16px; }
+.large_button_rounded { padding:12px 20px; font-size:16px; }
 
 /* ---------- حقل الكتابة السفلي ---------- */
-#content, #message_content { font-size:18px; }
+#content, #message_content { font-size:16px; }
 #message_form { height:48px; }
