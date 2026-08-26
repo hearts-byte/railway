@@ -1,5 +1,5 @@
 <?php
-if (!defined('IN_SCRIPT')) { die('Access Denied'); }
+if (!defined('BOOM')) { die('Access Denied'); }
 
 $lang['stories_title']          = 'Stories';
 $lang['stories_add']            = 'Add Story';
@@ -18,6 +18,5 @@ $lang['stories_send']           = 'Send';
 $lang['stories_err_login']      = 'You must be logged in';
 $lang['stories_err_empty_text'] = 'Cannot publish an empty text story';
 $lang['stories_err_no_file']    = 'No file was attached';
-$lang['stories_err_gold']       = 'Not enough gold to publish this story';
 $lang['stories_err_not_owner']  = 'This data is only available to the story owner';
 $lang['stories_err_expired']    = 'Story not found or has expired';

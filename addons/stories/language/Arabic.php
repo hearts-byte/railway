@@ -1,5 +1,5 @@
 <?php
-if (!defined('IN_SCRIPT')) { die('Access Denied'); }
+if (!defined('BOOM')) { die('Access Denied'); }
 
 $lang['stories_title']          = 'الستوريات';
 $lang['stories_add']            = 'إضافة ستوري';
@@ -18,6 +18,5 @@ $lang['stories_send']           = 'إرسال';
 $lang['stories_err_login']      = 'يجب تسجيل الدخول أولاً';
 $lang['stories_err_empty_text'] = 'لا يمكن نشر ستوري نصية فارغة';
 $lang['stories_err_no_file']    = 'لم يتم إرفاق أي ملف';
-$lang['stories_err_gold']       = 'رصيد الذهب غير كافٍ لنشر هذه الستوري';
 $lang['stories_err_not_owner']  = 'هذه البيانات متاحة لصاحب الستوري فقط';
 $lang['stories_err_expired']    = 'الستوري غير موجودة أو انتهت';
