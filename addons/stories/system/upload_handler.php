@@ -1,5 +1,5 @@
 <?php
-if (!defined('IN_SCRIPT')) { die('Access Denied'); }
+if (!defined('BOOM')) { die('Access Denied'); }
 
 /**
  * يعالج رفع ملف صورة/فيديو للستوري بشكل آمن.
@@ -16,14 +16,18 @@ function stories_handle_upload($file)
         return array('success' => false, 'error' => 'حدث خطأ أثناء رفع الملف');
     }
 
-    if ($file['size'] > STORIES_MAX_FILE_SIZE) {
-        return array('success' => false, 'error' => 'حجم الملف أكبر من الحد المسموح به');
-    }
-
     $original_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     $allowed = array_merge(STORIES_ALLOWED_IMAGE, STORIES_ALLOWED_VIDEO);
     if (!in_array($original_ext, $allowed, true)) {
         return array('success' => false, 'error' => 'امتداد الملف غير مسموح به');
+    }
+
+    $is_video_ext = in_array($original_ext, STORIES_ALLOWED_VIDEO, true);
+    $size_limit = $is_video_ext ? STORIES_MAX_VIDEO_SIZE : STORIES_MAX_FILE_SIZE;
+    if ($file['size'] > $size_limit) {
+        return array('success' => false, 'error' => $is_video_ext
+            ? 'حجم الفيديو أكبر من الحد المسموح به (' . round(STORIES_MAX_VIDEO_SIZE / 1024 / 1024) . ' ميجا)'
+            : 'حجم الصورة أكبر من الحد المسموح به (' . round(STORIES_MAX_FILE_SIZE / 1024 / 1024) . ' ميجا)');
     }
 
     // التحقق الحقيقي من نوع الملف عبر فحص محتواه (وليس الاعتماد على الامتداد فقط)

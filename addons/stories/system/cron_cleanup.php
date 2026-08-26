@@ -1,20 +1,23 @@
 <?php
 /**
  * تنظيف دوري (اختياري) لحذف ملفات الوسائط الخاصة بالستوريات المنتهية فعلياً من الخادم.
- * الستوريات المنتهية تختفي تلقائياً من العرض عبر شرط expires_at في الاستعلامات،
- * لكن هذا الملف يقوم بحذف الملفات الفعلية من مجلد uploads/stories/ لتوفير المساحة.
+ * الستوريات المنتهية تختفي تلقائياً من العرض عبر شرط expires_at بالاستعلامات،
+ * لكن هذا الملف يحذف الملفات الفعلية من مجلد uploads/stories/ لتوفير المساحة.
  *
- * طريقة الاستخدام: أضف مهمة Cron Job على الخادم لتشغيل هذا الملف كل ساعة مثلاً:
+ * الاستخدام: أضف Cron Job على السيرفر لتشغيله كل ساعة مثلاً:
  *   0 * * * * php /path/to/addons/stories/system/cron_cleanup.php
+ *
+ * ملاحظة: هذا الملف يُشغّل من الطرفية (CLI) مباشرة وليس عبر متصفح، لذا يتصل
+ * بقاعدة البيانات مباشرة عبر ملف الكور system/database.php بدل نظام الجلسة
+ * (الذي يعتمد على كوكيز المتصفح وغير متاح بالـ CLI).
  */
 
-define('IN_SCRIPT', true);
-require_once __DIR__ . '/config.php';
+define('BOOM', true);
+require_once __DIR__ . '/../../../system/database.php';
+require_once __DIR__ . '/helpers.php';
 
-$db = stories_db();
-
-$res = $db->query("SELECT id, content, type FROM cody_stories
-                    WHERE expires_at <= NOW() AND status = 1 AND type IN ('image','video')");
+$res = $mysqli->query("SELECT id, content, type FROM cody_stories
+                        WHERE expires_at <= NOW() AND status = 1 AND type IN ('image','video')");
 
 $deleted_files = 0;
 while ($row = $res->fetch_assoc()) {
@@ -26,7 +29,6 @@ while ($row = $res->fetch_assoc()) {
     }
 }
 
-// تحديث حالة الستوريات المنتهية إلى غير نشطة (تنظيف منطقي إضافي)
-$db->query("UPDATE cody_stories SET status = 0 WHERE expires_at <= NOW() AND status = 1");
+$mysqli->query("UPDATE cody_stories SET status = 0 WHERE expires_at <= NOW() AND status = 1");
 
 echo "تم تنظيف {$deleted_files} ملف/ملفات منتهية.\n";
