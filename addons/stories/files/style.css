@@ -2,23 +2,46 @@
    Stories Addon - Styles
    ========================================================= */
 
-.stories-bar {
-    display: flex;
-    align-items: flex-start;
+/* ملاحظة: قالب الموقع عنده CSS عام يستهدف كل الـ div داخل #chat_right
+   (نفس container قائمة الأصدقاء)، وهذا كان يتغلب على تنسيقاتنا ويحوّل
+   الشريط لقائمة عمودية بدل صف أفقي. لذلك نستخدم !important هنا صراحة
+   لضمان الأولوية بغض النظر عن ثيم الموقع. */
+#stories-bar.stories-bar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
     gap: 14px;
     padding: 12px 10px;
-    overflow-x: auto;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     background: transparent;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(255,255,255,.08);
     scrollbar-width: thin;
+    width: auto !important;
+    height: auto !important;
 }
-.stories-bar::-webkit-scrollbar { height: 4px; }
-.stories-bar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+#stories-bar.stories-bar::-webkit-scrollbar { height: 4px; }
+#stories-bar.stories-bar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
 
-.stories-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* هذا العنصر كان بدون display:flex فكانت الأفاتارات تتكدّس بشكل غير منتظم
+   بدل ما تكون بصف أفقي واحد قابل للتمرير الجانبي بجانب زر "إضافتك" */
+#stories-bar-list.stories-bar-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    gap: 14px;
+    flex-shrink: 0;
+    width: auto !important;
+    height: auto !important;
+}
+
+#stories-bar .stories-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
     width: 68px;
     flex-shrink: 0;
     cursor: pointer;
@@ -31,7 +54,7 @@
     height: 60px;
     border-radius: 50%;
     padding: 3px;
-    background: #e0e0e0; /* لا يوجد ستوري جديد */
+    background: #3a3d45; /* لا يوجد ستوري جديد */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,18 +63,18 @@
     background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
 .stories-avatar-ring.seen {
-    background: #d0d0d0;
+    background: #4a4d55;
 }
 .stories-avatar-ring img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #fff;
-    background: #f0f0f0;
+    border: 2px solid #1b1d23;
+    background: #2a2c33;
 }
 
-.stories-ring-add { background: #e0e0e0; }
+.stories-ring-add { background: #3a3d45; }
 .stories-plus {
     position: absolute;
     bottom: -2px;
@@ -65,13 +88,13 @@
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    border: 2px solid #fff;
+    border: 2px solid #1b1d23;
 }
 
 .stories-name {
     font-size: 11px;
     margin-top: 4px;
-    color: #ddd;
+    color: #d0d2d8;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -89,47 +112,51 @@
     z-index: 9999;
 }
 .stories-modal {
-    background: #fff;
+    background: #1e2025;
+    color: #eaeaea;
     border-radius: 14px;
     width: 92%;
     max-width: 420px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 16px;
+    padding: 0;
 }
-.stories-modal-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+
+/* رأس النافذة الآن يستخدم كلاسات القالب الأصلية (brow/bcell/modal_top_menu)
+   مثل نافذة AA_global_notify تماماً، فلا حاجة لتنسيق مخصص هنا. */
+
 .stories-close {
     background: none;
     border: none;
     font-size: 22px;
     cursor: pointer;
     line-height: 1;
-    color: #666;
+    color: #ccc;
 }
 
-.stories-tabs {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 12px;
-}
+/* التبويبات (نص / صورة / فيديو) تستخدم الآن نفس كلاسات القائمة
+   الأصلية modal_menu / modal_menu_item / modal_selected — نفس
+   التبويبات المستخدمة في نافذة الملف الشخصي (حساب/المزيد)،
+   فتأخذ لون الثيم تلقائياً بدون أي تنسيق مخصص هنا. */
 .stories-tab {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    background: #f2f2f2;
-    cursor: pointer;
     font-size: 13px;
 }
-.stories-tab.active {
-    background: #6c5ce7;
-    color: #fff;
+.stories-tab i {
+    margin-inline-end: 4px;
+}
+
+/* زر اختيار الملف (صورة/فيديو) بنفس نمط أزرار الرفع الأصلية
+   (lite_olay + proplayer_btn)، المستخدمة لرفع صورة الغلاف/الافتار/الموسيقى */
+.stories-pick-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.stories-pick-btn .up_input {
+    cursor: pointer;
 }
 
 .stories-text-preview {
@@ -147,11 +174,13 @@
 #stories-text-input {
     width: 100%;
     min-height: 60px;
-    border: 1px solid #ddd;
+    border: 1px solid #3a3d45;
     border-radius: 8px;
     padding: 8px;
     resize: vertical;
     font-family: inherit;
+    background: #2a2c33;
+    color: #eaeaea;
 }
 .stories-colors {
     display: flex;
@@ -159,6 +188,7 @@
     gap: 8px;
     margin-top: 8px;
     font-size: 13px;
+    color: #cfd1d6;
 }
 
 .stories-media-preview {
@@ -170,33 +200,49 @@
     background: #000;
 }
 
-.stories-gold-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 12px;
-    font-size: 13px;
-}
-.stories-gold-row input[type="number"] {
-    width: 80px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-}
-
-.stories-btn-submit {
-    width: 100%;
-    margin-top: 14px;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: #6c5ce7;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 14px;
-}
+/* زر النشر يستخدم الآن reg_button theme_btn (نفس زر الإرسال في AA_global_notify) */
 .stories-btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+/* -------------------- شريط تقدّم رفع الصورة/الفيديو -------------------- */
+.stories-upload-progress {
+    display: none;
+    height: 6px;
+    background: rgba(255,255,255,.12);
+    border-radius: 6px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.stories-upload-progress .fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+    transition: width .15s linear;
+}
+/* حالة "جاري المعالجة" بعد ما يخلص الرفع الفعلي (100%) ولسا السيرفر يعالج
+   الملف (فحص، حفظ، تسجيل بقاعدة البيانات) — شريط متحرك بدل التجمّد */
+.stories-upload-progress.stories-upload-processing .fill {
+    width: 100% !important;
+    transition: none;
+    background: linear-gradient(90deg, #6c5ce7 25%, #a29bfe 50%, #6c5ce7 75%);
+    background-size: 200% 100%;
+    animation: stories-upload-stripes 1s linear infinite;
+}
+@keyframes stories-upload-stripes {
+    0%   { background-position: 200% 0; }
+    100% { background-position: 0 0; }
+}
+.stories-upload-status {
+    font-size: 12px;
+    color: #a29bfe;
+    margin-top: 6px;
+    text-align: center;
+}
+.stories-upload-hint {
+    font-size: 12px;
+    color: #9a9da5;
+    margin-top: 6px;
+}
+.stories-upload-hint.stories-hint-error { color: #ff6b6b; }
 
 /* -------------------- عارض الستوري بملء الشاشة -------------------- */
 .stories-viewer {
@@ -242,6 +288,19 @@
 .stories-viewer-username { font-weight: bold; font-size: 14px; }
 .stories-viewer-time { font-size: 12px; opacity: .7; }
 .stories-viewer-head .stories-close { margin-inline-start: auto; color: #fff; }
+.stories-viewer-head .stories-delete-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    opacity: .85;
+    cursor: pointer;
+    margin-inline-start: auto;
+    padding: 4px 8px;
+}
+.stories-viewer-head .stories-delete-btn:hover { color: #ff6b6b; opacity: 1; }
+/* لما يكون زر الحذف موجود، نلغي auto-margin عنه ونخليه على الإغلاق */
+.stories-viewer-head .stories-delete-btn + .stories-close { margin-inline-start: 6px; }
 
 .stories-viewer-body {
     position: relative;
@@ -252,8 +311,8 @@
     overflow: hidden;
 }
 .stories-media-container {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,35 +358,49 @@
     cursor: pointer;
     opacity: .9;
 }
-.stories-reply-row {
+
+/* -------------------- صف التفاعلات (أيقونات، بدون كتابة رد) -------------------- */
+.stories-reactions-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-}
-.stories-emojis {
-    display: flex;
+    justify-content: space-evenly;
     gap: 6px;
-    font-size: 18px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 30px;
+    padding: 8px 10px;
+    backdrop-filter: blur(6px);
 }
-.stories-emojis span { cursor: pointer; }
-#stories-reply-input {
-    flex: 1;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.3);
-    border-radius: 20px;
-    padding: 8px 14px;
-    color: #fff;
-    font-size: 13px;
-}
-#stories-reply-input::placeholder { color: rgba(255,255,255,.6); }
-#stories-reply-send {
-    background: #6c5ce7;
+.stories-reaction-icon {
+    background: none;
     border: none;
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 20px;
+    font-size: 22px;
+    line-height: 1;
     cursor: pointer;
-    font-size: 13px;
+    padding: 4px;
+    border-radius: 50%;
+    transition: transform .15s ease;
+}
+.stories-reaction-icon:active { transform: scale(1.35); }
+.stories-reaction-icon.stories-reaction-sent {
+    animation: stories-reaction-pop .5s ease;
+}
+@keyframes stories-reaction-pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.6) translateY(-6px); }
+    100% { transform: scale(1) translateY(0); }
+}
+/* رمز يطير للأعلى ويختفي كتأكيد بصري لإرسال التفاعل */
+.stories-reaction-fly {
+    position: fixed;
+    font-size: 26px;
+    pointer-events: none;
+    animation: stories-reaction-fly-up 1s ease-out forwards;
+    z-index: 10050;
+}
+@keyframes stories-reaction-fly-up {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-90px) scale(1.4); }
 }
 
 .stories-viewers-panel {
@@ -350,15 +423,20 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 0;
+    padding: 8px 4px;
     border-bottom: 1px solid rgba(255,255,255,.1);
     font-size: 13px;
 }
 .stories-viewer-row img {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     object-fit: cover;
+}
+.stories-viewer-row span { flex: 1; font-size: 14px; }
+.stories-viewer-reaction {
+    font-size: 18px;
+    line-height: 1;
 }
 
 /* -------------------- Responsive -------------------- */
