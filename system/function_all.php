@@ -3223,7 +3223,10 @@ function loadAddonsJs($type = 'chat'){
 	$load_addons = $mysqli->query("SELECT * FROM boom_addons ORDER BY addons_load ASC");
 	if($load_addons->num_rows > 0){
 		while ($addons = $load_addons->fetch_assoc()){
-			include BOOM_PATH . '/addons/' . $addons['addons'] . '/files/' . $addons['addons'] . '.php';
+			$file_path = BOOM_PATH . '/addons/' . $addons['addons'] . '/files/' . $addons['addons'] . '.php';
+			if(file_exists($file_path)){
+				include $file_path;
+			}
 		}
 	}
 }
