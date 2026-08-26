@@ -208,8 +208,9 @@ function myAvatar($a){
 function imgLoader(){
 	return 'default_images/misc/holder.png';
 }
-function defaultAvatar($a){
-	if(stripos($a, 'default') !== false){
+return true;
+	function defaultAvatar($a){
+	if(!empty($a) && stripos($a, 'default') !== false){
 		return true;
 	}
 }
