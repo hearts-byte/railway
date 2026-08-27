@@ -674,8 +674,8 @@ function validName($name){
 			}
 		}
 	}
-	$regex = 'a-zA-Z0-9\p{Arabic}\p{Cyrillic}\p{Latin}\p{Han}\p{Katakana}\p{Hiragana}\p{Hebrew}';
-	if(preg_match('/^[' . $regex . ']{1,}([\-\_ ]{1})?([' . $regex . ']{1,})?$/ui', $name) && mb_strlen($name, 'UTF-8') <= $setting['max_username'] && !ctype_digit($name) && mb_strlen($name, 'UTF-8') >= 2){
+	$regex = '\p{L}\p{N}\p{M}\p{So}\p{Sk}\p{Pd}';
+	if(preg_match('/^[' . $regex . ' _]{2,}$/ui', $name) && mb_strlen($name, 'UTF-8') <= $setting['max_username'] && !ctype_digit($name) && mb_strlen($name, 'UTF-8') >= 2){
 		return true;
 	}
 	return false;
