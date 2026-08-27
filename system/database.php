@@ -3,7 +3,7 @@
 define('BOOM_PREFIX', 'tc_');
 
 // optional base domain (ضع رابط موقعك على Railway)
-define('BOOM_DOMAIN', 'https://mlok1.up.railway.app/');
+define('BOOM_DOMAIN', 'https://mariam.up.railway.app/');
 
 // default redis configuration
 define('REDIS_IP', '127.0.0.1');
