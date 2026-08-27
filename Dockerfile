@@ -53,11 +53,13 @@ RUN mkdir -p /var/www/html/system && { \
     } > /var/www/html/system/_debug_prepend.php
 
 # إعداد الصلاحيات للمجلدات المطلوبة في صفحة التثبيت والرفع
-RUN mkdir -p /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+# ملاحظة: avatar و cover و room_icon يتحولون لـ symlink داخل upload/ وقت التشغيل (start.sh)
+# لذلك ما نلمس صلاحياتهم هنا، بس نجهز upload كمجلد مؤقت لحد ما يترّبط الـ Volume
+RUN mkdir -p /var/www/html/upload \
     && touch /var/www/html/php_errors.log \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+    && chmod -R 777 /var/www/html/upload \
     && chmod 666 /var/www/html/php_errors.log
 
 # ملف تشغيل يهيّئ منفذ Railway الديناميكي ويصلح مشكلة MPM
