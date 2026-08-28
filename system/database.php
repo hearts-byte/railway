@@ -6,10 +6,11 @@ define('BOOM_PREFIX', 'boom_');
 define('BOOM_DOMAIN', 'https://sh3d.up.railway.app/');
 
 // default redis configuration
-define('REDIS_IP', '127.0.0.1');
+// default redis configuration
+define('REDIS_IP', 'redis.railway.internal');
 define('REDIS_PORT', 6379);
 define('REDIS_TIMEOUT', 0.2);
-define('REDIS_PASS', '');
+define('REDIS_PASS', 'opgumkrQxBOsndRHxjKoscnSdQentiPC');
 
 // database configuration
 define('BOOM_DHOST', 'mysql.railway.internal');
