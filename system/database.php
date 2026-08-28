@@ -1,9 +1,9 @@
 <?php
 // base system prefix
-define('BOOM_PREFIX', 'tc_');
+define('BOOM_PREFIX', 'boom_');
 
 // optional base domain (ضع رابط موقعك على Railway)
-define('BOOM_DOMAIN', 'https://sh3d.up.railway.app');
+define('BOOM_DOMAIN', 'https://sh3d.up.railway.app/');
 
 // default redis configuration
 define('REDIS_IP', '127.0.0.1');
