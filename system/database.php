@@ -21,7 +21,7 @@ define('BOOM_DNAME', 'railway');
 define('BOOM_PATH', dirname(__DIR__));
 
 // do not modify those variables
-define('BOOM_CRYPT', '');
+define('BOOM_CRYPT', 'a8f9D2xL0!mP7$qZ');
 define('BOOM_INSTALL', 1);
 define('BOOM', 1);
 ?>
